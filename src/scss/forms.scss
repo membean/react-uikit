@@ -344,7 +344,7 @@ body:not(:-moz-handler-blocked) fieldset {
     position: relative;
 
     &:after {
-      // Triangle icon
+      // Caret icon
       background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMCAxNSI+CiAgPHBhdGggZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTUgMTVMMCAwaDMweiIvPgo8L3N2Zz4K);
       background-position: center center;
       background-repeat: no-repeat;
@@ -389,18 +389,19 @@ body:not(:-moz-handler-blocked) fieldset {
 
       &:focus {
         box-shadow: 0 0 0 $outline-width $outline-color;
+        outline: none;
+      }
+
+      /* Undo the Firefox inner focus ring */
+      &:focus:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 $black;
       }
 
       &.invalid,
       &.invalid:hover {
         border-color: $red;
         color: $red;
-      }
-
-      /* Undo the Firefox inner focus ring */
-      &:focus:-moz-focusring {
-        color: transparent;
-        text-shadow: 0 0 0 #000;
       }
 
       /* Hide the arrow in IE10 and up */
@@ -415,16 +416,10 @@ body:not(:-moz-handler-blocked) fieldset {
 
     /* Media query to target Firefox only */
     @-moz-document url-prefix() {
-      /* Firefox hack to hide the arrow */
-      select {
-        text-indent: 0.01px;
-        text-overflow: "";
-        padding-right: 1rem;
-      }
-
       /* <option> elements inherit styles from <select>, so reset them. */
       option {
         background-color: $white;
+        color: $black;
       }
     }
   }
