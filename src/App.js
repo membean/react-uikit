@@ -1,25 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import CheckBoxInputPage from "./components/CheckBoxInput/index.js";
+import HomePage from "./components/home.js";
+import RadioGroupInputPage from "./components/RadioGroupInput/index.js";
+import SelectInputPage from "./components/SelectInput/index.js";
+import TextInputPage from "./components/TextInput/index.js";
+import "./App.scss";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/components/checkbox">CheckBox Input</Link>
+          </li>
+          <li>
+            <Link to="/components/radiogroup">RadioGroup Input</Link>
+          </li>
+          <li>
+            <Link to="/components/select">Select Input</Link>
+          </li>
+          <li>
+            <Link to="/components/text">Text Input</Link>
+          </li>
+        </ul>
+        <hr />
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route exact path="/components/checkbox">
+            <CheckBoxInputPage />
+          </Route>
+          <Route exact path="/components/radiogroup">
+            <RadioGroupInputPage />
+          </Route>
+          <Route exact path="/components/select">
+            <SelectInputPage />
+          </Route>
+          <Route exact path="/components/text">
+            <TextInputPage />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

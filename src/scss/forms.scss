@@ -1,0 +1,555 @@
+// Hack targeting Firefox
+body:not(:-moz-handler-blocked) fieldset {
+  display: table-cell;
+}
+
+/*
+    FORMS
+*/
+
+.control {
+  margin-bottom: 1.5rem;
+  text-align: left;
+
+  label,
+  legend,
+  .control-label {
+    color: currentColor;
+  }
+}
+
+.control-feedback {
+  color: currentColor;
+  font-size: 80%;
+  font-style: italic;
+  padding-left: 1.5rem;
+  position: relative;
+
+  a {
+    color: currentColor;
+    text-decoration: underline;
+
+    &:focus {
+      box-shadow: 0 0 0 $outline-width/2 $outline-color;
+      outline: none;
+    }
+
+    &:focus,
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  &:before {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 50% 50%;
+    border-radius: 50%;
+    content: "";
+    display: inline-block;
+    height: 1rem;
+    left: 0.05rem;
+    line-height: 1rem;
+    position: absolute;
+    top: 0.15rem;
+    width: 1rem;
+  }
+
+  // TODO: Better loading animation
+  @keyframes busy-pulse {
+    0% {
+      box-shadow: inset 0 0 0 0px rgba(0, 0, 0, 0.5);
+    }
+    100% {
+      box-shadow: inset 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+  }
+
+  &.busy {
+    color: $muted;
+
+    &:before {
+      animation: busy-pulse 1s infinite;
+      background-color: transparent;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2IDYiPgogIDxjaXJjbGUgY3g9IjMiIGN5PSIzIiByPSIzIiBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz4KPC9zdmc+Cg==);
+      background-size: 25% 25%;
+    }
+  }
+
+  &.error {
+    color: $red;
+
+    &:before {
+      background-color: $red;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA3IDIxIj4KICA8cGF0aCBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0zLjUwMyAxNS4yMDFjMS42NjkgMCAzLjAyOSAxLjI1MSAzLjAyOSAyLjc2MyAwIDEuNTA4LTEuMzU3IDIuNzM2LTMuMDMgMi43MzYtMS42MjQgMC0yLjk3LTEuMjM4LTIuOTctMi43MzYgMC0xLjUwMSAxLjM0OS0yLjc2MyAyLjk3LTIuNzYzek01LjEzNy43Yy41ODIgMCAxLjA4NS40MiAxLjE1NC45MzlsLjAwOC4xMi0uMDA2IDMuMDU3LTEuMTM3IDcuNDdjLS4wNjMuNDYtLjUxOC44NDctMS4wMjkuOTAzTDQgMTMuMTk3aC0uOTM0Yy0uNTE3IDAtMS4wMDctLjM1Mi0xLjEzMy0uNzkybC0uMDIzLS4xMTItMS4xNDQtNy41VjEuNzZjMC0uNTMxLjQ2MS0uOTkgMS4wMy0xLjA1M0wxLjkyNy43aDMuMjF6Ii8+Cjwvc3ZnPgo=);
+    }
+  }
+
+  &.info {
+    color: $black;
+
+    &:before {
+      background-color: $black;
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA4IDIxIj4KICA8cGF0aCBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGQ9Ik0zLjc5IDUuMTg3Yy42MTQgMCAxLjE0LS4yMTYgMS41NzctLjY0OS40MzctLjQzMi42NTYtLjk1NS42NTYtMS41NyAwLS42MTUtLjIxNi0xLjE0LS42NDktMS41NzhBMi4xNDQgMi4xNDQgMCAwMDMuNzkuNzM0Yy0uNjE0IDAtMS4xMzguMjE5LTEuNTcuNjU2YTIuMTYzIDIuMTYzIDAgMDAtLjY0OSAxLjU3OGMwIC42MTUuMjE2IDEuMTM4LjY0OSAxLjU3YTIuMTQgMi4xNCAwIDAwMS41Ny42NDl6bTMuNjQ1IDE1LjU0N3YtLjUxOGMtLjY0NC0uMDM5LTEuMDc2LS4xOS0xLjI5Ny0uNDU0LS4yMi0uMjY0LS4zMzEtLjg3Mi0uMzMxLTEuODIzVjcuMjYySC4xNTh2LjUzM2MuNjM0LjAzOCAxLjA2Mi4xOSAxLjI4My40NTQuMjIuMjY0LjMzMS44NzIuMzMxIDEuODIzdjcuODY3YzAgLjk1MS0uMDk2IDEuNTM3LS4yODggMS43NTgtLjI4OC4zMjctLjczLjUtMS4zMjYuNTE5di41MThoNy4yNzd6Ii8+Cjwvc3ZnPgo=);
+    }
+  }
+
+  &.success {
+    color: $green;
+
+    &:before {
+      background-color: $green;
+      background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTYuNCwxTDUuNywxLjdMMi45LDQuNUwyLjEsMy43TDEuNCwzTDAsNC40bDAuNywwLjdsMS41LDEuNWwwLjcsMC43bDAuNy0wLjdsMy41LTMuNWwwLjctMC43TDYuNCwxTDYuNCwxeiINCgkvPg0KPC9zdmc+DQo=);
+    }
+  }
+}
+
+.helper-text {
+  color: $muted;
+  font-size: 85%;
+  margin-left: 1.5rem;
+}
+
+/*
+    BUTTONS (TODO: move to buttons.scss)
+*/
+
+.btn {
+  background-color: $black;
+  border: 0;
+  border-radius: 0.25rem;
+  color: $white;
+  cursor: pointer;
+  font: inherit;
+  font-weight: bold;
+  letter-spacing: inherit;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 0.5rem 1rem;
+  -webkit-font-smoothing: inherit;
+
+  &:focus {
+    box-shadow: 0 0 0 $outline-width $outline-color;
+    outline: none;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: $blue;
+  }
+}
+
+/*
+    CHECKBOXES & RADIO BUTTONS
+*/
+
+.checkbox,
+.radiogroup {
+  input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    left: 0.1rem;
+    top: 0.2rem;
+
+    &:checked ~ .control-indicator {
+      background-color: currentColor;
+    }
+
+    &:focus ~ .control-indicator {
+      box-shadow: 0 0 0 $outline-width $outline-color;
+    }
+
+    &:focus ~ .control-indicator,
+    &:hover ~ .control-indicator {
+      border-color: $blue;
+    }
+
+    &:focus ~ .control-label,
+    &:hover ~ .control-label {
+      color: $blue;
+    }
+
+    &:checked:focus ~ .control-indicator,
+    &:checked:hover ~ .control-indicator {
+      background-color: $blue;
+    }
+
+    &.invalid ~ .control-indicator,
+    &.invalid:checked ~ .control-indicator {
+      border-color: $red;
+    }
+
+    &.invalid:checked ~ .control-indicator {
+      background-color: $red;
+    }
+
+    &.invalid ~ .control-label {
+      color: $red;
+    }
+
+    &[disabled] ~ .control-indicator {
+      border-color: $muted;
+    }
+
+    &[disabled]:checked ~ .control-indicator {
+      background-color: $muted !important;
+    }
+
+    &[disabled]:checked:focus ~ .control-indicator,
+    &[disabled]:checked:hover ~ .control-indicator {
+      background-color: $muted !important;
+    }
+
+    &[disabled] ~ .control-label {
+      color: $muted;
+    }
+  }
+
+  label {
+    color: currentColor;
+    cursor: pointer;
+    display: inline-block;
+    padding-left: 1.5rem;
+
+    .control-indicator {
+      background-color: transparent;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: 50% 50%;
+      border: 1px solid currentColor;
+      display: block;
+      height: 1rem;
+      left: 0;
+      line-height: 1rem;
+      pointer-events: none;
+      position: absolute;
+      text-align: center;
+      top: 0.2rem;
+      user-select: none;
+      width: 1rem;
+    }
+  }
+}
+
+.checkbox {
+  position: relative;
+
+  input {
+    &:checked ~ .control-indicator {
+      background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTYuNCwxTDUuNywxLjdMMi45LDQuNUwyLjEsMy43TDEuNCwzTDAsNC40bDAuNywwLjdsMS41LDEuNWwwLjcsMC43bDAuNy0wLjdsMy41LTMuNWwwLjctMC43TDYuNCwxTDYuNCwxeiINCgkvPg0KPC9zdmc+DQo=);
+    }
+  }
+
+  label {
+    margin-bottom: 0.5rem;
+
+    .control-indicator {
+      border-radius: 0.25rem;
+    }
+  }
+
+  &.disabled {
+    label {
+      cursor: not-allowed;
+    }
+  }
+
+  .control-feedback {
+    margin-bottom: 0.5rem;
+  }
+
+  .control-label {
+    font-weight: bold;
+  }
+}
+
+.radiogroup {
+  border: 0;
+  display: block;
+  margin: 0 0 1.5rem;
+  min-width: 0;
+  padding: 0.01em 0 0 0;
+
+  input {
+    &:checked ~ .control-indicator {
+      background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTQsMUMyLjMsMSwxLDIuMywxLDRzMS4zLDMsMywzczMtMS4zLDMtM1M1LjcsMSw0LDF6Ii8+DQo8L3N2Zz4NCg==);
+    }
+
+    &[disabled] ~ .control-label {
+      color: $muted;
+      cursor: not-allowed;
+    }
+  }
+
+  label {
+    .control-indicator {
+      border-radius: 50%;
+    }
+  }
+
+  legend {
+    display: table;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding: 0;
+
+    &.invalid {
+      color: $red;
+    }
+  }
+
+  .control-feedback {
+    margin-bottom: 1rem;
+    margin-top: -0.5rem;
+  }
+
+  .radiogroup-item {
+    margin-bottom: 1rem;
+    margin-left: 0.5rem;
+    position: relative;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &.disabled {
+      label {
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+/*
+    SELECT MENUS 
+      - VERY helpful in determining filter values: https://codepen.io/sosuke/pen/Pjoqqp
+*/
+
+.select {
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .control-feedback {
+    margin-bottom: 0.5rem;
+  }
+
+  .select-menu {
+    display: inline-block;
+    margin-bottom: 1rem;
+    position: relative;
+
+    &:after {
+      // Triangle icon
+      background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMCAxNSI+CiAgPHBhdGggZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTUgMTVMMCAwaDMweiIvPgo8L3N2Zz4K);
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: 75% 75%;
+      content: "";
+      display: inline-block;
+      filter: brightness(0);
+      height: 2.5rem;
+      margin-top: -0.15rem;
+      pointer-events: none;
+      position: absolute;
+      right: 1rem;
+      top: 0.2rem;
+      width: 1rem;
+    }
+
+    &:hover {
+      &:after {
+        filter: invert(9%) sepia(100%) saturate(5988%) hue-rotate(246deg)
+          brightness(103%) contrast(145%);
+      }
+    }
+
+    select {
+      appearance: none;
+      background: none;
+      border: 1px solid currentColor;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1.5;
+      margin: 0;
+      outline: 0;
+      padding: 0.5rem 2.75rem 0.5rem 1rem;
+      width: 100%;
+
+      &:active,
+      &:focus,
+      &:hover {
+        color: $blue;
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 $outline-width $outline-color;
+      }
+
+      &.invalid,
+      &.invalid:hover {
+        border-color: $red;
+        color: $red;
+      }
+
+      /* Undo the Firefox inner focus ring */
+      &:focus:-moz-focusring {
+        color: transparent;
+        text-shadow: 0 0 0 #000;
+      }
+
+      /* Hide the arrow in IE10 and up */
+      &::-ms-expand {
+        display: none;
+      }
+
+      &[disabled] {
+        color: $muted;
+      }
+    }
+
+    /* Media query to target Firefox only */
+    @-moz-document url-prefix() {
+      /* Firefox hack to hide the arrow */
+      select {
+        text-indent: 0.01px;
+        text-overflow: "";
+        padding-right: 1rem;
+      }
+
+      /* <option> elements inherit styles from <select>, so reset them. */
+      option {
+        background-color: $white;
+      }
+    }
+  }
+
+  &.disabled {
+    .select-menu {
+      &:after {
+        filter: invert(45%) sepia(0%) saturate(447%) hue-rotate(150deg)
+          brightness(102%) contrast(84%);
+      }
+
+      select {
+        background-color: $gray-light;
+        border-color: $gray-light;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  &.full-width {
+    .select-menu {
+      width: 100%;
+    }
+  }
+
+  &.inline {
+    label {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+  }
+
+  &.invalid {
+    label {
+      color: $red;
+    }
+
+    .select-menu {
+      &:after {
+        filter: invert(15%) sepia(93%) saturate(5873%) hue-rotate(358deg)
+          brightness(105%) contrast(116%);
+      }
+    }
+  }
+}
+
+/*
+    TEXT INPUTS
+*/
+
+.text {
+  input {
+    display: block;
+  }
+
+  input {
+    border: 1px solid $black;
+    border-radius: 0.25rem;
+    color: currentColor;
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+
+    &:focus {
+      box-shadow: 0 0 0 $outline-width $outline-color;
+      outline: none;
+    }
+
+    &:focus,
+    &:hover {
+      border-color: $blue;
+    }
+
+    &[disabled] {
+      border-color: $muted;
+      color: $muted;
+      cursor: not-allowed;
+    }
+  }
+
+  label {
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  .control-feedback {
+    margin-bottom: 0.5rem;
+  }
+
+  .helper-text {
+    margin-left: 0;
+  }
+
+  &.disabled {
+    label {
+      color: $muted;
+    }
+  }
+
+  &.inline {
+    input,
+    label,
+    .control-label {
+      display: inline-block;
+    }
+
+    input {
+      width: auto;
+    }
+
+    label {
+      margin-bottom: 0rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+  &.invalid {
+    input {
+      border-color: $red;
+    }
+
+    label {
+      color: $red;
+    }
+  }
+}
