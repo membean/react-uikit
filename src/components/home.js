@@ -172,10 +172,10 @@ const HomePage = () => {
           feedbackText={formState.name.feedbackText}
           id="text-input-1"
           isValid={formState.name.isValid}
-          helperText="Lorem ipsum dolor sit amet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum."
           label="Quiz name:"
           name="name"
           onChange={handleInputChange("name")}
+          polite
           value={formState.name.value}
         />
       </div>
