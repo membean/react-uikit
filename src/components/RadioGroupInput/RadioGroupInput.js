@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import RadioButtonInput from "./RadioButtonInput.js";
+import classnames from "classnames";
 
 /*
   Renders a radio button group. Follows the W3C accessible design patterns:
@@ -68,7 +69,13 @@ const RadioGroupInput = props => {
     setState({ value: value || null });
   }, [value]);
 
-  const feedbackClasses = `control-feedback ${feedbackContext || "error"}`;
+  const feedbackClasses = classnames(
+    "control-feedback",
+    `${feedbackContext || "error"}`,
+    {
+      hidden: !feedbackText
+    }
+  );
   const feedbackId = `${id}-feedback`;
   const legendClasses = isValid === false ? "invalid" : null;
 
@@ -104,15 +111,12 @@ const RadioGroupInput = props => {
   return (
     <fieldset className="radiogroup control" id={id}>
       <legend className={legendClasses}>{label}</legend>
-      {feedbackText && (
-        <div
-          aria-live={polite ? "polite" : "assertive"}
-          className={feedbackClasses}
-          dangerouslySetInnerHTML={{ __html: feedbackText || null }}
-          hidden={!feedbackText || null}
-          id={feedbackId}
-        />
-      )}
+      <div
+        aria-live={polite ? "polite" : "assertive"}
+        className={feedbackClasses}
+        dangerouslySetInnerHTML={{ __html: feedbackText || null }}
+        id={feedbackId}
+      />
       {renderOptions()}
     </fieldset>
   );

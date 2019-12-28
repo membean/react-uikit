@@ -64,7 +64,13 @@ const SelectInput = props => {
     inline: inline,
     invalid: isValid !== undefined && !isValid
   });
-  const feedbackClasses = `control-feedback ${feedbackContext || "error"}`;
+  const feedbackClasses = classnames(
+    "control-feedback",
+    `${feedbackContext || "error"}`,
+    {
+      hidden: !feedbackText
+    }
+  );
   const feedbackId = `${id}-feedback`;
   const inputClasses = isValid === false ? "invalid" : null;
   const helperId = `${id}-helper`;
@@ -106,10 +112,6 @@ const SelectInput = props => {
     return optionsHTML;
   };
 
-  /* 
-    TODO: Allow an optional blank choice (label becomes first blank choice).
-  */
-
   return (
     <div className={controlClasses}>
       {label && <label htmlFor={id}>{label}</label>}
@@ -127,15 +129,12 @@ const SelectInput = props => {
           {renderOptions()}
         </select>
       </div>
-      {feedbackText && (
-        <div
-          aria-live={polite ? "polite" : "assertive"}
-          className={feedbackClasses}
-          dangerouslySetInnerHTML={{ __html: feedbackText || null }}
-          hidden={!feedbackText || null}
-          id={feedbackId}
-        />
-      )}
+      <div
+        aria-live={polite ? "polite" : "assertive"}
+        className={feedbackClasses}
+        dangerouslySetInnerHTML={{ __html: feedbackText || null }}
+        id={feedbackId}
+      />
       {helperText && (
         <div
           className="helper-text"

@@ -5,6 +5,7 @@ import classnames from "classnames";
 /*
 
   TODO: Verify props and proptypes
+  TODO: Add an event that fires when the "enter" key is pressed.
   
   Usage:
     
@@ -71,7 +72,13 @@ const TextInput = props => {
     inline: inline,
     invalid: isValid !== undefined && !isValid
   });
-  const feedbackClasses = `control-feedback ${feedbackContext || "error"}`;
+  const feedbackClasses = classnames(
+    "control-feedback",
+    `${feedbackContext || "error"}`,
+    {
+      "visually-hidden": !feedbackText
+    }
+  );
   const feedbackId = `${id}-feedback`;
   const helperId = `${id}-helper`;
   const inputClasses = isValid === false ? "invalid" : null;
@@ -122,15 +129,12 @@ const TextInput = props => {
         type={type || "text"}
         value={state.value}
       />
-      {feedbackText && (
-        <div
-          aria-live={polite ? "polite" : "assertive"}
-          className={feedbackClasses}
-          dangerouslySetInnerHTML={{ __html: feedbackText || null }}
-          hidden={!feedbackText || null}
-          id={feedbackId}
-        />
-      )}
+      <div
+        aria-live={polite ? "polite" : "assertive"}
+        className={feedbackClasses}
+        dangerouslySetInnerHTML={{ __html: feedbackText || null }}
+        id={feedbackId}
+      />
       {helperText && (
         <div
           className="helper-text"

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 
 /*
   Renders a 2-state checkbox input. Follows the W3C accessible design patterns:
@@ -57,7 +58,13 @@ const CheckBoxInput = props => {
   }, [value]);
 
   const controlClasses = `checkbox control ${disabled ? "disabled" : ""}`;
-  const feedbackClasses = `control-feedback ${feedbackContext || "error"}`;
+  const feedbackClasses = classnames(
+    "control-feedback",
+    `${feedbackContext || "error"}`,
+    {
+      hidden: !feedbackText
+    }
+  );
   const feedbackId = `${id}-feedback`;
   const inputClasses = isValid === false ? "invalid" : null;
   const helperId = `${id}-helper`;
@@ -95,15 +102,12 @@ const CheckBoxInput = props => {
         <span className="control-indicator" aria-hidden="true"></span>
         <span className="control-label">{label}</span>
       </label>
-      {feedbackText && (
-        <div
-          aria-live={polite ? "polite" : "assertive"}
-          className={feedbackClasses}
-          dangerouslySetInnerHTML={{ __html: feedbackText || null }}
-          hidden={!feedbackText || null}
-          id={feedbackId}
-        />
-      )}
+      <div
+        aria-live={polite ? "polite" : "assertive"}
+        className={feedbackClasses}
+        dangerouslySetInnerHTML={{ __html: feedbackText || null }}
+        id={feedbackId}
+      />
       {helperText && (
         <div
           className="helper-text"
