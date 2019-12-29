@@ -29,7 +29,6 @@ const SelectInputPage = () => {
 
   const [selectState, setSelectState] = useState({
     blankOption: "Choose wisely...",
-    fullWidth: true,
     helperText:
       "We'll only send you emails once a day, but they'll seem like they are coming from someone you know, so we think that you'll really enjoy them.",
     id: "select-menu-5",

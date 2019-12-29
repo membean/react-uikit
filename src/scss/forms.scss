@@ -41,6 +41,7 @@ body:not(:-moz-handler-blocked) fieldset {
   }
 
   &.hidden {
+    margin: 0 !important;
     visibility: hidden;
   }
 
@@ -163,6 +164,7 @@ body:not(:-moz-handler-blocked) fieldset {
 
     &:focus ~ .control-indicator {
       box-shadow: 0 0 0 $outline-width $outline-color;
+      outline: none;
     }
 
     &:focus ~ .control-indicator,
@@ -327,6 +329,137 @@ body:not(:-moz-handler-blocked) fieldset {
 }
 
 /*
+    FILE BROWSER
+*/
+$file-browser-height: 2rem;
+
+.file {
+  input {
+    height: $file-browser-height;
+    margin: 0;
+    opacity: 0;
+    min-width: 14rem;
+
+    &:focus ~ .file-browser {
+      box-shadow: 0 0 0 $outline-width $outline-color;
+      outline: none;
+    }
+
+    &:focus ~ .file-browser,
+    &:hover ~ .file-browser {
+      border-color: $blue;
+
+      &:before {
+        background-color: $blue;
+        border-color: $blue;
+        color: $white;
+      }
+    }
+
+    &[disabled] ~ .file-browser,
+    &:focus[disabled] ~ .file-browser,
+    &:hover[disabled] ~ .file-browser {
+      border-color: $muted;
+
+      &:before {
+        background-color: $gray-light;
+        border-color: $muted;
+        color: $muted;
+      }
+    }
+  }
+
+  label.file-browser-label {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+  }
+
+  label.file-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .file-browser {
+    background-color: $white;
+    border: 1px solid $black;
+    border-radius: 0.25rem;
+    bottom: 0;
+    font-size: 85%;
+    line-height: 1.5;
+    left: 0;
+    line-height: 1.5;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    right: 0;
+    top: 0;
+    user-select: none;
+    z-index: 5;
+
+    &:after {
+      color: $muted;
+      content: "Choose file...";
+    }
+
+    &:before {
+      background-color: $black;
+      border-left: 1px solid $black;
+      border-radius: 0 0.25rem 0.25rem 0;
+      bottom: 0;
+      color: $white;
+      content: "Browse";
+      display: block;
+      line-height: 1.5;
+      padding: 0.5rem 1rem;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 6;
+    }
+  }
+
+  &.disabled {
+    label.file-browser-label {
+      cursor: not-allowed;
+    }
+  }
+
+  &.full-width {
+    label.file-browser-label {
+      width: 100%;
+    }
+  }
+
+  &.invalid {
+    .file-browser,
+    input:focus ~ .file-browser,
+    input:hover ~ .file-browser {
+      border-color: $red;
+
+      &:before {
+        background-color: $red;
+        border-color: $red;
+        color: $white;
+      }
+    }
+
+    label.file-label {
+      color: $red;
+    }
+  }
+
+  .control-feedback {
+    margin-top: 0.5rem;
+  }
+
+  .helper-text {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}
+
+/*
     SELECT MENUS 
       - VERY helpful in determining filter values: https://codepen.io/sosuke/pen/Pjoqqp
 */
@@ -335,7 +468,7 @@ body:not(:-moz-handler-blocked) fieldset {
   label {
     display: block;
     font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
 
   .control-feedback {
@@ -344,7 +477,7 @@ body:not(:-moz-handler-blocked) fieldset {
 
   .select-menu {
     display: inline-block;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     position: relative;
 
     &:after {
@@ -468,6 +601,10 @@ body:not(:-moz-handler-blocked) fieldset {
       }
     }
   }
+
+  .helper-text {
+    margin-left: 0;
+  }
 }
 
 /*
@@ -475,10 +612,6 @@ body:not(:-moz-handler-blocked) fieldset {
 */
 
 .text {
-  input {
-    display: block;
-  }
-
   input {
     border: 1px solid $black;
     border-radius: 0.25rem;

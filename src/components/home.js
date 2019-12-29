@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CheckBoxInput from "./CheckBoxInput/CheckBoxInput.js";
+import FileBrowserInput from "./FileBrowserInput/FileBrowserInput.js";
 import RadioGroupInput from "./RadioGroupInput/RadioGroupInput.js";
 import SelectInput from "./SelectInput/SelectInput.js";
 import TextInput from "./TextInput/TextInput.js";
@@ -14,6 +15,10 @@ const HomePage = () => {
     difficulty: {
       isValid: true,
       value: "regular"
+    },
+    file: {
+      isValid: true,
+      value: null
     },
     name: {
       isValid: true,
@@ -44,6 +49,13 @@ const HomePage = () => {
         value: false
       };
 
+      const file = {
+        ...formState.file,
+        feedbackText: "You must select a file to upload.",
+        isValid: false,
+        value: ""
+      };
+
       const name = {
         ...formState.name,
         feedbackText: "You must enter a name for this quiz.",
@@ -68,12 +80,14 @@ const HomePage = () => {
       newState = {
         ...formState,
         antiCheat,
+        file,
         name,
         difficulty,
         targetStudents,
         valid:
           antiCheat.isValid &&
           difficulty.isValid &&
+          file.isValid &&
           name.isValid &&
           targetStudents.isValid
       };
@@ -220,6 +234,20 @@ const HomePage = () => {
           onChange={handleInputChange("antiCheat")}
           polite
           value={formState.antiCheat.value}
+        />
+      </div>
+      <div className="section">
+        <FileBrowserInput
+          feedbackContext={formState.file.feedbackContext}
+          feedbackText={formState.file.feedbackText}
+          helperText="Explain what file the user is expected to upload, including any requirements like file size, file type, etc."
+          id="file-browser-1"
+          isValid={formState.file.isValid}
+          label="Would you like to upload a file?"
+          name="fileUpload"
+          onChange={handleInputChange("file")}
+          polite
+          value={formState.file.value}
         />
       </div>
       <div className="section">

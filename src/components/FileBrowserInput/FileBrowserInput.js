@@ -7,13 +7,10 @@ import classnames from "classnames";
   
   Usage:
     
-    <CheckBoxInput
-      feedbackContext="success"
-      feedbackText="You must check this box."
-      id="my-checkbox"
-      label="Agree to the terms and conditions"
-      name="myCheckbox"
-      value={false}
+    <FileBrowserInput
+      id="my-browser"
+      label="Upload a file"
+      name="fileUpload"
     />
   
   Props:
@@ -33,9 +30,8 @@ import classnames from "classnames";
     value [Boolean] - (required) The checkbox is checked if true.
 */
 
-const SelectInput = props => {
+const FileBrowserInput = props => {
   const {
-    blankOption,
     disabled,
     feedbackContext,
     feedbackText,
@@ -46,18 +42,17 @@ const SelectInput = props => {
     label,
     name,
     onChange,
-    options,
     polite,
     value
   } = props;
 
-  const [state, setState] = useState({ value: value || false });
+  const [state, setState] = useState({});
 
   useEffect(() => {
-    setState({ value: value || false });
+    setState({});
   }, [value]);
 
-  const controlClasses = classnames("select", "control", {
+  const controlClasses = classnames("file", "control", {
     disabled: disabled,
     inline: inline,
     invalid: isValid !== undefined && !isValid
@@ -70,7 +65,6 @@ const SelectInput = props => {
     }
   );
   const feedbackId = `${id}-feedback`;
-  const inputClasses = isValid === false ? "invalid" : null;
   const helperId = `${id}-helper`;
 
   const getDescribedByIds = () => {
@@ -89,44 +83,31 @@ const SelectInput = props => {
     onChange && onChange(event, newValue);
   };
 
-  const renderOptions = () => {
-    let optionsHTML = options.map((option, index) => {
-      const optionId = `${id}-option-${index + 1}`;
-
-      return (
-        <option id={optionId} key={index + 1} value={option.value}>
-          {option.label}
-        </option>
-      );
-    });
-
-    if (blankOption) {
-      optionsHTML.unshift(
-        <option key={0} value="null">
-          {blankOption}
-        </option>
-      );
-    }
-    return optionsHTML;
-  };
+  /*
+    TODO: Get the selected file name and display it instead of "Choose file...",
+          or perhaps just change it to reflect that a file was selected. Ideally
+          show the file name. Possible to say something like "2 files..."
+  */
 
   return (
     <div className={controlClasses}>
-      {label && <label htmlFor={id}>{label}</label>}
-      <div className="select-menu">
-        <select
-          aria-label={label ? null : blankOption || null}
+      {!inline && (
+        <label className="file-label" htmlFor={id}>
+          {label}
+        </label>
+      )}
+      <label className="file-browser-label">
+        <input
           aria-describedby={getDescribedByIds()}
-          className={inputClasses}
+          aria-label={inline ? label : null}
           disabled={disabled}
           id={id}
           name={name}
           onChange={handleChange}
-          value={state.value}
-        >
-          {renderOptions()}
-        </select>
-      </div>
+          type="file"
+        />
+        <span className="file-browser"></span>
+      </label>
       <div
         aria-live={polite ? "polite" : "assertive"}
         className={feedbackClasses}
@@ -144,24 +125,19 @@ const SelectInput = props => {
   );
 };
 
-SelectInput.propTypes = {
+FileBrowserInput.propTypes = {
   disabled: PropTypes.bool,
   feedbackContext: PropTypes.oneOf(["busy", "error", "info", "success"]),
   feedbackText: PropTypes.string,
   id: PropTypes.string.isRequired,
+  inline: PropTypes.bool,
   isValid: PropTypes.bool,
   helperText: PropTypes.string,
-  label: PropTypes.string,
+  label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
-  ).isRequired,
   polite: PropTypes.bool,
-  value: PropTypes.string
+  value: PropTypes.bool
 };
 
-export default SelectInput;
+export default FileBrowserInput;
