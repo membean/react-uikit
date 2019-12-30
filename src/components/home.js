@@ -29,6 +29,7 @@ const HomePage = () => {
       isValid: true,
       value: null
     },
+    progress: 45,
     valid: true
   };
 
@@ -251,14 +252,22 @@ const HomePage = () => {
         />
       </div>
       <div className="section">
-        <label style={{ fontWeight: "bold" }}>Progress Bar:</label>
+        <label
+          style={{
+            display: "block",
+            fontWeight: "bold",
+            marginBottom: "0.5rem"
+          }}
+        >
+          Progress Bar:
+        </label>
         <ProgressBar
-          description="Your file is 45% uploaded"
+          description={`Your file is ${formState.progress}% uploaded`}
           id="progress-bar-1"
           label="File upload"
           max={100}
           tooltip
-          value={45}
+          value={formState.progress}
         />
       </div>
       <div className="section">
