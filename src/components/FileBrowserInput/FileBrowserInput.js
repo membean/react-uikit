@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
 /*
   TODO: Verify props and proptypes
+  TODO: Ability to turn off aria live feedback
   
   Usage:
     
@@ -42,21 +43,20 @@ const FileBrowserInput = props => {
     label,
     name,
     onChange,
-    polite,
-    value
+    polite
   } = props;
 
-  const [state, setState] = useState({});
-
-  useEffect(() => {
-    setState({});
-  }, [value]);
+  const [state, setState] = useState({
+    prompt: "Choose file...",
+    files: null
+  });
 
   const controlClasses = classnames("file", "control", {
     disabled: disabled,
     inline: inline,
     invalid: isValid !== undefined && !isValid
   });
+
   const feedbackClasses = classnames(
     "control-feedback",
     `${feedbackContext || "error"}`,
@@ -64,6 +64,7 @@ const FileBrowserInput = props => {
       hidden: !feedbackText
     }
   );
+
   const feedbackId = `${id}-feedback`;
   const helperId = `${id}-helper`;
 
@@ -78,16 +79,20 @@ const FileBrowserInput = props => {
   };
 
   const handleChange = event => {
-    const newValue = event.target.value;
-    setState({ value: newValue });
-    onChange && onChange(event, newValue);
+    const files = event.target.files;
+    setState({ ...state, files: files, prompt: setPrompt(files) });
+    onChange && onChange(event, files);
   };
 
-  /*
-    TODO: Get the selected file name and display it instead of "Choose file...",
-          or perhaps just change it to reflect that a file was selected. Ideally
-          show the file name. Possible to say something like "2 files..."
-  */
+  const setPrompt = files => {
+    if (files.length > 1) {
+      return `${files.length} files selected...`;
+    } else if (files.length === 1) {
+      return files[0].name;
+    } else {
+      return "Choose file(s)...";
+    }
+  };
 
   return (
     <div className={controlClasses}>
@@ -102,11 +107,16 @@ const FileBrowserInput = props => {
           aria-label={inline ? label : null}
           disabled={disabled}
           id={id}
+          multiple
           name={name}
           onChange={handleChange}
           type="file"
+          value={state.value}
         />
-        <span className="file-browser"></span>
+        <span aria-hidden="true" className="file-browser"></span>
+        <span aria-hidden="true" className="file-browser-prompt">
+          {state.prompt}
+        </span>
       </label>
       <div
         aria-live={polite ? "polite" : "assertive"}
@@ -137,7 +147,7 @@ FileBrowserInput.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   polite: PropTypes.bool,
-  value: PropTypes.bool
+  value: PropTypes.any
 };
 
 export default FileBrowserInput;

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CheckBoxInputPage from "./components/CheckBoxInput/index.js";
 import FileBrowserInput from "./components/FileBrowserInput/index.js";
 import HomePage from "./components/home.js";
+import ProgressBarPage from "./components/ProgressBar/index.js";
 import RadioGroupInputPage from "./components/RadioGroupInput/index.js";
 import SelectInputPage from "./components/SelectInput/index.js";
 import TextInputPage from "./components/TextInput/index.js";
@@ -21,6 +22,9 @@ function App() {
           </li>
           <li>
             <Link to="/components/file-browser">File Browser Input</Link>
+          </li>
+          <li>
+            <Link to="/components/progress">Progress Bar</Link>
           </li>
           <li>
             <Link to="/components/radiogroup">RadioGroup Input</Link>
@@ -42,6 +46,9 @@ function App() {
           </Route>
           <Route exact path="/components/file-browser">
             <FileBrowserInput />
+          </Route>
+          <Route exact path="/components/progress">
+            <ProgressBarPage />
           </Route>
           <Route exact path="/components/radiogroup">
             <RadioGroupInputPage />

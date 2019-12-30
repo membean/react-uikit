@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CheckBoxInput from "./CheckBoxInput/CheckBoxInput.js";
 import FileBrowserInput from "./FileBrowserInput/FileBrowserInput.js";
+import ProgressBar from "./ProgressBar/ProgressBar.js";
 import RadioGroupInput from "./RadioGroupInput/RadioGroupInput.js";
 import SelectInput from "./SelectInput/SelectInput.js";
 import TextInput from "./TextInput/TextInput.js";
@@ -16,9 +17,9 @@ const HomePage = () => {
       isValid: true,
       value: "regular"
     },
-    file: {
+    files: {
       isValid: true,
-      value: null
+      value: ""
     },
     name: {
       isValid: true,
@@ -49,11 +50,10 @@ const HomePage = () => {
         value: false
       };
 
-      const file = {
-        ...formState.file,
+      const files = {
+        ...formState.files,
         feedbackText: "You must select a file to upload.",
-        isValid: false,
-        value: ""
+        isValid: false
       };
 
       const name = {
@@ -80,14 +80,14 @@ const HomePage = () => {
       newState = {
         ...formState,
         antiCheat,
-        file,
+        files,
         name,
         difficulty,
         targetStudents,
         valid:
           antiCheat.isValid &&
           difficulty.isValid &&
-          file.isValid &&
+          files.isValid &&
           name.isValid &&
           targetStudents.isValid
       };
@@ -238,16 +238,27 @@ const HomePage = () => {
       </div>
       <div className="section">
         <FileBrowserInput
-          feedbackContext={formState.file.feedbackContext}
-          feedbackText={formState.file.feedbackText}
+          feedbackContext={formState.files.feedbackContext}
+          feedbackText={formState.files.feedbackText}
           helperText="Explain what file the user is expected to upload, including any requirements like file size, file type, etc."
           id="file-browser-1"
-          isValid={formState.file.isValid}
+          isValid={formState.files.isValid}
           label="Would you like to upload a file?"
           name="fileUpload"
-          onChange={handleInputChange("file")}
+          onChange={handleInputChange("files")}
           polite
-          value={formState.file.value}
+          value={formState.files.value}
+        />
+      </div>
+      <div className="section">
+        <label style={{ fontWeight: "bold" }}>Progress Bar:</label>
+        <ProgressBar
+          description="Your file is 45% uploaded"
+          id="progress-bar-1"
+          label="File upload"
+          max={100}
+          tooltip
+          value={45}
         />
       </div>
       <div className="section">

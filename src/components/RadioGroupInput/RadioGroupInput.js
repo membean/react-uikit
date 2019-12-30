@@ -77,6 +77,7 @@ const RadioGroupInput = props => {
     }
   );
   const feedbackId = `${id}-feedback`;
+  const fieldsetClasses = classnames("radiogroup", "control", { disabled });
   const legendClasses = isValid === false ? "invalid" : null;
 
   const handleChange = (event, value) => {
@@ -109,7 +110,7 @@ const RadioGroupInput = props => {
   };
 
   return (
-    <fieldset className="radiogroup control" id={id}>
+    <fieldset className={fieldsetClasses} id={id}>
       <legend className={legendClasses}>{label}</legend>
       <div
         aria-live={polite ? "polite" : "assertive"}
