@@ -50,6 +50,7 @@ import classnames from "classnames";
 
 const RadioGroupInput = props => {
   const {
+    classes,
     disabled,
     feedbackContext,
     feedbackText,
@@ -77,7 +78,9 @@ const RadioGroupInput = props => {
     }
   );
   const feedbackId = `${id}-feedback`;
-  const fieldsetClasses = classnames("radiogroup", "control", { disabled });
+  const fieldsetClasses = classnames("radiogroup", "control", classes, {
+    disabled
+  });
   const legendClasses = isValid === false ? "invalid" : null;
 
   const handleChange = (event, value) => {
@@ -124,6 +127,7 @@ const RadioGroupInput = props => {
 };
 
 RadioGroupInput.propTypes = {
+  classes: PropTypes.string,
   disabled: PropTypes.bool,
   feedbackContext: PropTypes.string,
   feedbackText: PropTypes.string,

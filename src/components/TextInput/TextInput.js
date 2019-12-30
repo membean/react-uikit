@@ -38,6 +38,7 @@ import classnames from "classnames";
 const TextInput = props => {
   const {
     autoComplete,
+    classes,
     disabled,
     feedbackContext,
     feedbackText,
@@ -67,7 +68,7 @@ const TextInput = props => {
     setState({ value: value || "" });
   }, [value]);
 
-  const controlClasses = classnames("text", "control", {
+  const controlClasses = classnames("text", "control", classes, {
     disabled: disabled,
     inline: inline,
     invalid: isValid !== undefined && !isValid
@@ -147,6 +148,7 @@ const TextInput = props => {
 };
 
 TextInput.propTypes = {
+  classes: PropTypes.string,
   disabled: PropTypes.bool,
   feedbackContext: PropTypes.oneOf(["busy", "error", "info", "success"]),
   feedbackText: PropTypes.string,

@@ -33,6 +33,7 @@ import classnames from "classnames";
 
 const FileBrowserInput = props => {
   const {
+    classes,
     disabled,
     feedbackContext,
     feedbackText,
@@ -51,7 +52,7 @@ const FileBrowserInput = props => {
     files: null
   });
 
-  const controlClasses = classnames("file", "control", {
+  const controlClasses = classnames("file", "control", classes, {
     disabled: disabled,
     inline: inline,
     invalid: isValid !== undefined && !isValid
@@ -136,6 +137,7 @@ const FileBrowserInput = props => {
 };
 
 FileBrowserInput.propTypes = {
+  classes: PropTypes.string,
   disabled: PropTypes.bool,
   feedbackContext: PropTypes.oneOf(["busy", "error", "info", "success"]),
   feedbackText: PropTypes.string,

@@ -35,6 +35,7 @@ import classnames from "classnames";
 
 const SelectInput = props => {
   const {
+    classes,
     blankOption,
     disabled,
     feedbackContext,
@@ -57,7 +58,7 @@ const SelectInput = props => {
     setState({ value: value || false });
   }, [value]);
 
-  const controlClasses = classnames("select", "control", {
+  const controlClasses = classnames("select", "control", classes, {
     disabled: disabled,
     inline: inline,
     invalid: isValid !== undefined && !isValid
@@ -145,6 +146,7 @@ const SelectInput = props => {
 };
 
 SelectInput.propTypes = {
+  classes: PropTypes.string,
   disabled: PropTypes.bool,
   feedbackContext: PropTypes.oneOf(["busy", "error", "info", "success"]),
   feedbackText: PropTypes.string,

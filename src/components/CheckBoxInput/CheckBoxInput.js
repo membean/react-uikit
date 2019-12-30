@@ -38,6 +38,7 @@ import classnames from "classnames";
 
 const CheckBoxInput = props => {
   const {
+    classes,
     disabled,
     feedbackContext,
     feedbackText,
@@ -57,7 +58,9 @@ const CheckBoxInput = props => {
     setState({ value: value || false });
   }, [value]);
 
-  const controlClasses = `checkbox control ${disabled ? "disabled" : ""}`;
+  const controlClasses = classnames("checkbox", "control", classes, {
+    disabled
+  });
   const feedbackClasses = classnames(
     "control-feedback",
     `${feedbackContext || "error"}`,
@@ -120,6 +123,7 @@ const CheckBoxInput = props => {
 };
 
 CheckBoxInput.propTypes = {
+  classes: PropTypes.string,
   disabled: PropTypes.bool,
   feedbackContext: PropTypes.oneOf(["busy", "error", "info", "success"]),
   feedbackText: PropTypes.string,
