@@ -2,6 +2,45 @@ import React, { useState } from "react";
 import FileBrowserInput from "./FileBrowserInput.js";
 
 const FileBrowserInputPage = () => {
+  const initialState = {
+    id: "browser-5",
+    inline: true,
+    label: "Select a file",
+    multiple: true,
+    name: "inlineFileBrowser"
+  };
+
+  const [browserState, setbrowserState] = useState(initialState);
+
+  const getFileNames = files => {
+    return Array.from(files)
+      .map(file => {
+        return `<li>${file.name}</li>`;
+      })
+      .join("");
+  };
+
+  const handleBrowserChange = (_event, files) => {
+    const hasFiles = files.length > 0;
+    setbrowserState({
+      ...browserState,
+      disabled: true,
+      feedbackContext: "busy",
+      feedbackText: "Uploading files..."
+    });
+    setTimeout(() => {
+      const feedback = {
+        disabled: false,
+        feedbackContext: hasFiles ? "success" : "error",
+        feedbackText: hasFiles
+          ? `<p>Uploaded the following files successfully:</p>
+              <ul>${getFileNames(files)}</ul>`
+          : 'Uh, oh! No file was selected. Please try again. If you continue to have problems, please <a href="mailto:support@membean.com">contact support</a> for assistance.'
+      };
+      setbrowserState({ ...browserState, ...feedback });
+    }, 2000);
+  };
+
   return (
     <div>
       <h1>File Browser</h1>
@@ -39,12 +78,7 @@ const FileBrowserInputPage = () => {
         />
       </div>
       <div className="section">
-        <FileBrowserInput
-          id="browser-5"
-          inline
-          label="Inline file browser"
-          name="inlineFileBrowser"
-        />
+        <FileBrowserInput {...browserState} onChange={handleBrowserChange} />
       </div>
     </div>
   );

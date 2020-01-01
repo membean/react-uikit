@@ -6,8 +6,6 @@ import classnames from "classnames";
 /*
   Renders a radio button group. Follows the W3C accessible design patterns:
   https://www.w3.org/TR/wai-aria-practices-1.1/#radiobutton
-
-  TODO: Verify props and proptypes
   
   Usage:
 
@@ -16,36 +14,52 @@ import classnames from "classnames";
         helperText: "A helpful description.",
         label: "First radio option",
         value: "1"
+      },
+      {
+        helperText: "Another helpful description.",
+        label: "Second radio option",
+        value: "2"
       }
     ];
 
     <RadioGroupInput
       id="my-radio-group"
-      label="Agree to the terms and conditions"
-      name="myRadio"
+      label="Please select an option"
+      name="myRadioGroup"
       options={radioGroupOptions}
     />
   
   Props:
 
-    disabled [Boolean] - All radio options are disabled if true.
+    classes [String] - Additional CSS classes that will be added to the control
+      container div element.
+    disabled [Boolean] - Disable the input elements.
     feedbackContext [String] - One of "busy", "error", "info", or "success".
-                               Defaults to "error".
-    feedbackText [String] - Feedback text that will be read assertively.
-    id [String] - (required) The HTML id attribute of the fieldset.
-    isValid [Boolean] - Displays invalid state if false.
-    label [String] - (required) The fieldset legend text.
-    name [String] - (required) The HTML name attribute of the radio options.
-    onChange [Function] - Fired when an option changes, and receives the
-                          event and value of the selected option. 
-    polite [Boolean] - Causes a screen reader to read the feedbackText politely.
-    options [Array] - (required) An array of option objects, with the following shape:
-      disabled [Boolean] - The option will be disabled if true (overridden by
-                           disabling the radio group).
-      helperText [String] - Optional text to provide context for the option.
-      label [String] - (required) The option's text label.
-      value [String] - (required) The option's value.
-    value [Boolean] - (required) A value to be preselected when rendered.
+      Defaults to "error". Class will be added to the feedback div element.
+    feedbackText [String] - Text that will be displayed as feedback. In order to
+      be useful for non-sighted users, this text must identify the input that it
+      refers to and a  clear message. By default, his text will be read by screen
+      readers assertively when it is updated, such as when providing a loading
+      message and then updating it with a confirmation message.
+    id [String] - (Required) The id attribute of the fieldset element.
+    isValid [Boolean] - Show the invalid state for the control.
+    label [String] - (required) The text label associated with the fieldset.
+    name [String] - (required) The name attribute for the input elements.
+    onChange [Function] - A callback to be fired when one of the options is
+      selected. Receives the event and option value as arguments.
+    options [Array] - (Required) An array of objects representing option elements. Each
+      option can have the following shape:
+        disabled [Boolean] - Disable this option (superceded by the RadioGroup
+            "disabled" prop.)
+        helperText [String] - Additional text that will be displayed to help
+           the user get an idea of what this option is. This text will be read
+           by screen readers when the option receives focus.
+        label [String] - (Required) The text label associated with the option.
+        value [String] - (Required) The option value.
+    polite [Boolean] - Set the aria-live attribute of the feedback element to
+      "polite". This will allow a screen reader to finish reading whatever it
+      is reading, then read the feedback, as opposed to interupting.
+    value [String] - The value of the option to be selected.
 */
 
 const RadioGroupInput = props => {

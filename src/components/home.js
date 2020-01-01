@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CheckBoxInput from "./CheckBoxInput/CheckBoxInput.js";
 import FileBrowserInput from "./FileBrowserInput/FileBrowserInput.js";
 import ProgressBar from "./ProgressBar/ProgressBar.js";
@@ -29,7 +29,6 @@ const HomePage = () => {
       isValid: true,
       value: null
     },
-    progress: 45,
     valid: true
   };
 
@@ -93,8 +92,11 @@ const HomePage = () => {
           targetStudents.isValid
       };
     }
-    // TODO: Focus on the first element with an error (should not be polite)
-    // TODO: Why don't inputs reset back to their original values?
+
+    /*
+      TODO Ability to add focus on any input element when validation fails.
+    */
+
     setformState(newState);
   };
 
@@ -125,6 +127,29 @@ const HomePage = () => {
     { label: "Normal", value: "regular" },
     { label: "Easy", value: "easy" }
   ];
+
+  /* Progress Bar */
+  const [progressState, setprogressState] = useState({
+    message: "",
+    progress: 0
+  });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const progress = progressState.progress;
+      if (progress < 100) {
+        setprogressState({
+          message: `Your file is ${progress}% uploaded.`,
+          progress: progress + 1
+        });
+      } else {
+        setprogressState({
+          message: "Your file has been uploaded."
+        });
+        clearTimeout(timer);
+      }
+    }, 100);
+  });
 
   /* Standalone Checkbox */
   const [checkBoxState, setCheckBoxState] = useState({
@@ -262,12 +287,11 @@ const HomePage = () => {
           Progress Bar:
         </label>
         <ProgressBar
-          description={`Your file is ${formState.progress}% uploaded`}
+          description={progressState.message}
           id="progress-bar-1"
-          label="File upload"
-          max={100}
-          tooltip
-          value={formState.progress}
+          label="Uploading File"
+          tooltip="bottom"
+          value={parseInt(progressState.progress)}
         />
       </div>
       <div className="section">

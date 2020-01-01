@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 /*
   Used by the RadioGroup component.
-  TODO: Verify props and proptypes
 */
 
 const RadioButtonInput = props => {

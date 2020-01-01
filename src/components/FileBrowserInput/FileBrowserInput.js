@@ -3,32 +3,45 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 
 /*
-  TODO: Verify props and proptypes
-  TODO: Ability to turn off aria live feedback
+  Generates an accessible file browser for selecting files.
   
   Usage:
     
     <FileBrowserInput
       id="my-browser"
-      label="Upload a file"
-      name="fileUpload"
+      label="Upload an image:"
+      name="myFileUpload"
     />
   
   Props:
 
-    disabled [Boolean] - Checkbox is disabled if true.
+    classes [String] - Additional CSS classes that will be added to the control
+      container div element.
+    disabled [Boolean] - Disable the input element.
     feedbackContext [String] - One of "busy", "error", "info", or "success".
-                               Defaults to "error".
-    feedbackText [String] - Feedback text that will be read assertively.
-    id [String] - (required) The HTML id attribute of the checkbox input.
-    isValid [Boolean] - Displays invalid state if false.
-    helperText [String] - Additional text to describe the checkbox.
-    label [String] - (required) The checkbox text label.
-    name [String] - (required) The HTML name attribute of the checkbox input.
-    onChange [Function] - Fired when the checkbox changes, and receives the
-                          event and value of the checkbox. 
-    polite [Boolean] - Causes a screen reader to read the feedbackText politely.
-    value [Boolean] - (required) The checkbox is checked if true.
+      Defaults to "error". Class will be added to the feedback div element.
+    feedbackText [String] - Text that will be displayed as feedback. In order
+      to be useful for non-sighted users, this text must identify the input
+      that it refers to and a  clear message. By default, his text will be read
+      by screen readers assertively when it is updated, such as when providing
+      a loading message and then updating it with a confirmation message.
+    id [String] - (Required) The id attribute of the input element.
+    inline [Boolean] - Do not show the text label.
+    isValid [Boolean] - Show the invalid state for the control.
+    helperText [String] - Additional text that will be displayed to help the user
+      get an idea of what this input is used for. This text will be read by
+      screen readers when the input receives focus.
+    label [String] - (required) The text label associated with the input.
+    multiple [Boolean] - Allow multiple files to be selected.
+    name [String] - (required) The name attribute of the input element.
+    onBlur [Function] - A callback to be fired when the input element loses focus.
+      Receives the event and input value as arguments.
+    onChange [Function] - A callback to be fired when the input element is changed.
+      Receives the event and input value as arguments.
+    onFocus [Function] - A callback to be fired when the input element receives focus.
+      Receives the event and input value as arguments.
+    polite [Boolean] - Set the aria-live attribute of the feedback element to
+      "polite". This will allow a screen reader to finish reading whatever it is reading, then read the feedback, as opposed to interupting.
 */
 
 const FileBrowserInput = props => {
@@ -42,8 +55,11 @@ const FileBrowserInput = props => {
     isValid,
     helperText,
     label,
+    multiple,
     name,
+    onBlur,
     onChange,
+    onFocus,
     polite
   } = props;
 
@@ -79,10 +95,20 @@ const FileBrowserInput = props => {
     }
   };
 
+  const handleBlur = event => {
+    const files = event.target.files;
+    onBlur && onBlur(event, files);
+  };
+
   const handleChange = event => {
     const files = event.target.files;
     setState({ ...state, files: files, prompt: setPrompt(files) });
     onChange && onChange(event, files);
+  };
+
+  const handleFocus = event => {
+    const files = event.target.files;
+    onFocus && onFocus(event, files);
   };
 
   const setPrompt = files => {
@@ -108,9 +134,11 @@ const FileBrowserInput = props => {
           aria-label={inline ? label : null}
           disabled={disabled}
           id={id}
-          multiple
+          multiple={multiple || null}
           name={name}
+          onBlur={handleBlur}
           onChange={handleChange}
+          onFocus={handleFocus}
           type="file"
           value={state.value}
         />
@@ -146,10 +174,10 @@ FileBrowserInput.propTypes = {
   isValid: PropTypes.bool,
   helperText: PropTypes.string,
   label: PropTypes.string.isRequired,
+  multiple: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
-  polite: PropTypes.bool,
-  value: PropTypes.any
+  polite: PropTypes.bool
 };
 
 export default FileBrowserInput;

@@ -3,37 +3,46 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 
 /*
-  Renders a 2-state checkbox input. Follows the W3C accessible design patterns:
-  https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox
-
-  TODO: Verify props and proptypes
+  Renders an accessible, styleable 2-state checkbox input.
   
   Usage:
     
     <CheckBoxInput
-      feedbackContext="success"
-      feedbackText="You must check this box."
       id="my-checkbox"
-      label="Agree to the terms and conditions"
+      label="Checkbox label"
       name="myCheckbox"
-      value={false}
+      value={true}
     />
   
   Props:
 
-    disabled [Boolean] - Checkbox is disabled if true.
+    classes [String] - Additional CSS classes that will be added to the control
+      container div element.
+    disabled [Boolean] - Disable the input element.
     feedbackContext [String] - One of "busy", "error", "info", or "success".
-                               Defaults to "error".
-    feedbackText [String] - Feedback text that will be read assertively.
-    id [String] - (required) The HTML id attribute of the checkbox input.
-    isValid [Boolean] - Displays invalid state if false.
-    helperText [String] - Additional text to describe the checkbox.
-    label [String] - (required) The checkbox text label.
-    name [String] - (required) The HTML name attribute of the checkbox input.
-    onChange [Function] - Fired when the checkbox changes, and receives the
-                          event and value of the checkbox. 
-    polite [Boolean] - Causes a screen reader to read the feedbackText politely.
-    value [Boolean] - (required) The checkbox is checked if true.
+      Defaults to "error". Class will be added to the feedback div element.
+    feedbackText [String] - Text that will be displayed as feedback. In order to
+      be useful for non-sighted users, this text must identify the input that it
+      refers to and a  clear message. By default, his text will be read by screen
+      readers assertively when it is updated, such as when providing a loading
+      message and then updating it with a confirmation message.
+    id [String] - (Required) The id attribute of the input element.
+    isValid [Boolean] - Show the invalid state for the control.
+    helperText [String] - Additional text that will be displayed to help the user
+      get an idea of what this input is used for. This text will be read by screen
+      readers when the input receives focus.
+    label [String] - (required) The text label associated with the input.
+    name [String] - (required) The name attribute of the input element.
+    onBlur [Function] - A callback to be fired when the input element loses focus.
+      Receives the event and input value as arguments.
+    onChange [Function] - A callback to be fired when the input element is changed.
+      Receives the event and input value as arguments.
+    onFocus [Function] - A callback to be fired when the input element receives
+      focus. Receives the event and input value as arguments.
+    polite [Boolean] - Set the aria-live attribute of the feedback element to
+      "polite". This will allow a screen reader to finish reading whatever it
+      is reading, then read the feedback, as opposed to interupting.
+    value [Boolean] - Whether or not the checkbox is checked. Defaults to false.
 */
 
 const CheckBoxInput = props => {
@@ -47,7 +56,9 @@ const CheckBoxInput = props => {
     helperText,
     label,
     name,
+    onBlur,
     onChange,
+    onFocus,
     polite,
     value
   } = props;
@@ -82,10 +93,20 @@ const CheckBoxInput = props => {
     }
   };
 
+  const handleBlur = event => {
+    const value = event.target.value;
+    onBlur && onBlur(event, value);
+  };
+
   const handleChange = event => {
     const newValue = !state.value;
     setState({ value: newValue });
     onChange && onChange(event, newValue);
+  };
+
+  const handleFocus = event => {
+    const value = event.target.value;
+    onFocus && onFocus(event, value);
   };
 
   return (
@@ -99,7 +120,9 @@ const CheckBoxInput = props => {
           disabled={disabled}
           id={id}
           name={name}
+          onBlur={handleBlur}
           onChange={handleChange}
+          onFocus={handleFocus}
           type="checkbox"
         />
         <span className="control-indicator" aria-hidden="true"></span>
@@ -132,7 +155,9 @@ CheckBoxInput.propTypes = {
   helperText: PropTypes.string,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  onFocus: PropTypes.func,
   polite: PropTypes.bool,
   value: PropTypes.bool
 };
