@@ -49,9 +49,7 @@ h2 {
   white-space: nowrap; /* added line */
 }
 
-/*
-    FORMS
-*/
+/* CONTROLS */
 
 .control {
   margin-bottom: 1.5rem;
@@ -157,9 +155,7 @@ h2 {
   margin-left: 1.5rem;
 }
 
-/*
-    BUTTONS
-*/
+/* BUTTONS */
 
 .btn {
   background-color: $black;
@@ -187,9 +183,7 @@ h2 {
   }
 }
 
-/*
-    CHECKBOXES & RADIO BUTTONS
-*/
+/* CHECKBOXES & RADIO BUTTONS */
 
 .checkbox,
 .radiogroup {
@@ -376,9 +370,7 @@ h2 {
   }
 }
 
-/*
-    FILE BROWSER
-*/
+/* FILE BROWSER */
 $file-browser-height: 2rem;
 
 .file {
@@ -529,9 +521,7 @@ $file-browser-height: 2rem;
   }
 }
 
-/*
-    PROGRESS BAR
-*/
+/* PROGRESS BAR */
 
 .progress {
   position: relative;
@@ -666,10 +656,8 @@ $file-browser-height: 2rem;
   }
 }
 
-/*
-    SELECT MENUS 
-      - VERY helpful in determining filter values: https://codepen.io/sosuke/pen/Pjoqqp
-*/
+/* SELECT MENUS */
+/* - VERY helpful in determining filter values: https://codepen.io/sosuke/pen/Pjoqqp */
 
 .select {
   label {
@@ -818,9 +806,7 @@ $file-browser-height: 2rem;
   }
 }
 
-/*
-    TEXT INPUTS
-*/
+/* TEXT INPUTS */
 
 .text {
   input {
