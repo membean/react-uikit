@@ -32,6 +32,10 @@ import classnames from "classnames";
       The "default" tooltip is a full-screen, mobile friendly version.
     value [Integer] - Expects an integer representing the percent complete (0-100).
       Defaults to 0.
+
+    NOTE: Progress state and subsequent information is not made available via
+      aria-live regions. Instead, the onus is on the developer to make sure that
+      any updates are provided to the user in an accessible manner.
 */
 
 const ProgressBar = props => {

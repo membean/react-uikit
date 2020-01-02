@@ -27,6 +27,16 @@ h2 {
   margin-top: 3rem;
 }
 
+a {
+  &:visited {
+    color: $blue;
+  }
+
+  &:hover {
+    color: $green;
+  }
+}
+
 .App {
   padding: 1rem 2rem;
 }
@@ -117,7 +127,7 @@ h2 {
       animation: spin 1s linear infinite;
       background-color: transparent;
       background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNSAxNyI+CiAgPHBhdGggZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJub256ZXJvIiBkPSJNMTQuMTIgMTIuMzkzbC42NzkuNDRhOC41IDguNSAwIDAxLTExLjQ2OCAyLjY4bC0uOTcgMS4xOTktMS44NS00LjA3MiA0LjM2Ny45NjMtMS4wMzEgMS4yNzRhNy42OTEgNy42OTEgMCAwMDEwLjE1LTIuMzAybC4xMjMtLjE4MnpNMTIuNjgyLjQzbDEuODUgNC4wNzEtNC4zNjctLjk2MyAxLjAzMS0xLjI3NGE3LjY5MSA3LjY5MSAwIDAwLTEwLjE1IDIuMzAzbC0uMTIyLjE4Mi0uNjgtLjQ0MWE4LjUgOC41IDAgMDExMS40NjgtMi42OGwuOTctMS4xOTh6Ii8+Cjwvc3ZnPgo=);
-      background-size: 80% 80%;
+      background-size: 70% 70%;
     }
   }
 

@@ -107,7 +107,7 @@ const RadioGroupInputPage = () => {
           disabled: false,
           feedbackContext: "error",
           feedbackText:
-            'Uh, oh! Something went wrong updating your difficulty settings. Please try again. If you continue to have problems, please <a href="mailto:support@membean.com">contact support</a> for assistance.'
+            "Uh, oh! Something went wrong updating your difficulty settings. Please try again."
         };
       } else {
         feedback = {

@@ -3,9 +3,9 @@ import FileBrowserInput from "./FileBrowserInput.js";
 
 const FileBrowserInputPage = () => {
   const initialState = {
+    helperText: "Select a file between 1kb and 100GB to upload.",
     id: "browser-5",
-    inline: true,
-    label: "Select a file",
+    label: "Select multiple files and upload",
     multiple: true,
     name: "inlineFileBrowser"
   };

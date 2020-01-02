@@ -110,7 +110,7 @@ const HomePage = () => {
     },
     {
       helperText:
-        'Assign this quiz only to prepared students. Currently, <a href="#">15 students are prepared for a 25 question quiz</a> in this class.',
+        "Assign this quiz only to prepared students. Currently, 15 students are prepared for a 25 question quiz in this class. Links should be avoided in these descriptions, as they mess with the tab order for non-sighted users.",
       label: "Prepared students only",
       value: "prepared"
     },
@@ -204,7 +204,8 @@ const HomePage = () => {
         . Care must be taken when working with forms, as each input component
         can also be used as a standalone control. In this example form,
         validation is done when the form is submitted, so each control is set to{" "}
-        <tt>polite</tt> to ensure that each live region is read.
+        <tt>polite</tt> to ensure that each live region does not interupt each
+        other.
       </p>
       <div className="section">
         <TextInput
@@ -237,7 +238,7 @@ const HomePage = () => {
         <SelectInput
           feedbackContext={formState.difficulty.feedbackContext}
           feedbackText={formState.difficulty.feedbackText}
-          helperText='Here we have a chance to explain what it means when selecting a difficulty, and someone can <a href="#" target="_blank" rel="noopener noreferrer">learn more about quiz difficulty settings</a> by reading a support article.'
+          helperText="Here we have a chance to explain what it means when selecting a difficulty. If absolutesly necessary, we can link to a support article here, but that should be considered a failure, since it will mess with the tab order for sight impaired users."
           id="select-menu-1"
           isValid={formState.difficulty.isValid}
           label="How difficult would you like this quiz to be?"
@@ -252,7 +253,7 @@ const HomePage = () => {
         <CheckBoxInput
           feedbackContext={formState.antiCheat.feedbackContext}
           feedbackText={formState.antiCheat.feedbackText}
-          helperText='Here we have a chance to briefly explain what cheating detection is, and someone can <a href="#" target="_blank" rel="noopener noreferrer">learn more about cheating detection on quizzes</a> by reading a support article.'
+          helperText="Here we have a chance to briefly explain what cheating detection is, and what will happen if someone selects this option."
           id="checkbox-1"
           isValid={formState.antiCheat.isValid}
           label="Enable cheating detection?"

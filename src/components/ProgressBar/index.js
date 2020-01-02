@@ -60,7 +60,7 @@ const ProgressBarPage = () => {
             description="You have encountered 10 out of 100 words in Level 4."
             id="pb4"
             label="Level 4"
-            tooltip="right"
+            tooltip="bottom"
             value={10}
           />
         </div>
