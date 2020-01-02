@@ -1,36 +1,8 @@
 import React, { useState } from "react";
 import CheckBoxInput from "./CheckBoxInput.js";
+import StandaloneCheckBoxInput from "./StandaloneCheckBoxInput.js";
 
 const CheckBoxInputPage = () => {
-  const [checkBoxState, setCheckBoxState] = useState({
-    id: "checkbox-6",
-    helperText:
-      'When a checkbox triggers an action, a feedback context of <code>busy</code> provides a loading state. The feedback provided must communicate what action is occurring on which checkbox. When an action has completed, the feedback provided must identify which checkbox it is referring to. Updates to feedback will be read assertively by screen readers, unless the "polite" prop is passed.',
-    isValid: true,
-    label: "Hide timers during training and quizzes",
-    name: "appCheckbox",
-    value: false
-  });
-
-  const handleCheckboxChange = (_event, value) => {
-    setCheckBoxState({
-      ...checkBoxState,
-      disabled: true,
-      feedbackContext: "busy",
-      feedbackText: "Updating timer settings&hellip;"
-    });
-    setTimeout(() => {
-      const feedback = {
-        disabled: false,
-        feedbackContext: value ? "success" : "error",
-        feedbackText: value
-          ? `Timer settings updated successfully.`
-          : 'Uh, oh! Something went wrong updating your timer settings. Please try again. If you continue to have problems, please <a href="mailto:support@membean.com">contact support</a> for assistance.'
-      };
-      setCheckBoxState({ ...checkBoxState, ...feedback });
-    }, 2000);
-  };
-
   return (
     <div>
       <h1>CheckBox</h1>
@@ -79,9 +51,7 @@ const CheckBoxInputPage = () => {
           value={true}
         />
       </div>
-      <div className="section">
-        <CheckBoxInput {...checkBoxState} onChange={handleCheckboxChange} />
-      </div>
+      <StandaloneCheckBoxInput />
     </div>
   );
 };

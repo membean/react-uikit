@@ -4,6 +4,11 @@ import FileBrowserInput from "./FileBrowserInput/FileBrowserInput.js";
 import ProgressBar from "./ProgressBar/ProgressBar.js";
 import RadioGroupInput from "./RadioGroupInput/RadioGroupInput.js";
 import SelectInput from "./SelectInput/SelectInput.js";
+import StandaloneCheckBoxInput from "./CheckBoxInput/StandaloneCheckBoxInput.js";
+import StandaloneFileBrowserInput from "./FileBrowserInput/StandaloneFileBrowserInput.js";
+import StandaloneRadioGroupInput from "./RadioGroupInput/StandaloneRadioGroupInput.js";
+import StandaloneSelectInput from "./SelectInput/StandaloneSelectInput.js";
+import StandaloneTextInput from "./TextInput/StandaloneTextInput.js";
 import TextInput from "./TextInput/TextInput.js";
 
 const HomePage = () => {
@@ -151,36 +156,6 @@ const HomePage = () => {
     }, 100);
   });
 
-  /* Standalone Checkbox */
-  const [checkBoxState, setCheckBoxState] = useState({
-    id: "standalone-checkbox",
-    helperText:
-      "Checking this box will remove timers when you are answering questions during training and taking quizzes. You'll still be timed, but you won't see the timers.",
-    isValid: true,
-    label: "Hide timers during training and quizzes",
-    name: "appCheckbox",
-    value: false
-  });
-
-  const handleCheckboxChange = (_event, value) => {
-    setCheckBoxState({
-      ...checkBoxState,
-      disabled: true,
-      feedbackContext: "busy",
-      feedbackText: "Updating timer settings&hellip;"
-    });
-    setTimeout(() => {
-      const feedback = {
-        disabled: false,
-        feedbackContext: value ? "success" : "error",
-        feedbackText: value
-          ? `Timer settings updated successfully.`
-          : 'Uh, oh! Something went wrong updating your timer settings. Please try again. If you continue to have problems, please <a href="mailto:support@membean.com">contact support</a> for assistance.'
-      };
-      setCheckBoxState({ ...checkBoxState, ...feedback });
-    }, 2000);
-  };
-
   return (
     <form onSubmit={handleFormSubmit}>
       <h1>Sample Form</h1>
@@ -308,9 +283,11 @@ const HomePage = () => {
         setting. Check the box to simulate a successful update, and uncheck the
         box to simulate a failure to update the setting.
       </p>
-      <div className="section">
-        <CheckBoxInput {...checkBoxState} onChange={handleCheckboxChange} />
-      </div>
+      <StandaloneCheckBoxInput />
+      <StandaloneFileBrowserInput />
+      <StandaloneRadioGroupInput />
+      <StandaloneSelectInput />
+      <StandaloneTextInput />
     </form>
   );
 };
