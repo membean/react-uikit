@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import RadioGroupInput from "./RadioGroupInput.js";
 import StandaloneRadioGroupInput from "./StandaloneRadioGroupInput.js";
 

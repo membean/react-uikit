@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import FileBrowserInput from "./FileBrowserInput.js";
 import StandaloneFileBrowserInput from "./StandaloneFileBrowserInput.js";
 
