@@ -1,5 +1,5 @@
 {
-  "name": "uikit",
+  "name": "@membean/react-uikit",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
