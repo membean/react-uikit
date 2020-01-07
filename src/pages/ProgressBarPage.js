@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ProgressBar from "./ProgressBar.js";
+import ProgressBar from "../lib/components/ProgressBar/ProgressBar.js";
 
 const ProgressBarPage = () => {
   const [progressState, setprogressState] = useState({

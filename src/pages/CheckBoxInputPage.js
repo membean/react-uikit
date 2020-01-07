@@ -1,6 +1,6 @@
 import React from "react";
-import CheckBoxInput from "./CheckBoxInput.js";
-import StandaloneCheckBoxInput from "./StandaloneCheckBoxInput.js";
+import CheckBoxInput from "../lib/components/CheckBoxInput/CheckBoxInput.js";
+import StandaloneCheckBoxInput from "../lib/components/CheckBoxInput/StandaloneCheckBoxInput.js";
 
 const CheckBoxInputPage = () => {
   return (

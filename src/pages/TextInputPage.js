@@ -1,6 +1,6 @@
 import React from "react";
-import TextInput from "./TextInput.js";
-import StandaloneTextInput from "./StandaloneTextInput.js";
+import TextInput from "../lib/components/TextInput/TextInput.js";
+import StandaloneTextInput from "../lib/components/TextInput/StandaloneTextInput.js";
 
 const TextInputPage = () => {
   return (

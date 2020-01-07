@@ -1,6 +1,6 @@
 import React from "react";
-import SelectInput from "./SelectInput.js";
-import StandaloneSelectInput from "./StandaloneSelectInput.js";
+import SelectInput from "../lib/components/SelectInput/SelectInput.js";
+import StandaloneSelectInput from "../lib/components/SelectInput/StandaloneSelectInput.js";
 
 const SelectInputPage = () => {
   const HELPER_TEXT =

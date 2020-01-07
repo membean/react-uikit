@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import CheckBoxInput from "./CheckBoxInput/CheckBoxInput.js";
-import FileBrowserInput from "./FileBrowserInput/FileBrowserInput.js";
-import ProgressBar from "./ProgressBar/ProgressBar.js";
-import RadioGroupInput from "./RadioGroupInput/RadioGroupInput.js";
-import SelectInput from "./SelectInput/SelectInput.js";
-import StandaloneCheckBoxInput from "./CheckBoxInput/StandaloneCheckBoxInput.js";
-import StandaloneFileBrowserInput from "./FileBrowserInput/StandaloneFileBrowserInput.js";
-import StandaloneRadioGroupInput from "./RadioGroupInput/StandaloneRadioGroupInput.js";
-import StandaloneSelectInput from "./SelectInput/StandaloneSelectInput.js";
-import StandaloneTextInput from "./TextInput/StandaloneTextInput.js";
-import TextInput from "./TextInput/TextInput.js";
+import CheckBoxInput from "../lib/components/CheckBoxInput/CheckBoxInput.js";
+import FileBrowserInput from "../lib/components/FileBrowserInput/FileBrowserInput.js";
+import ProgressBar from "../lib/components/ProgressBar/ProgressBar.js";
+import RadioGroupInput from "../lib/components/RadioGroupInput/RadioGroupInput.js";
+import SelectInput from "../lib/components/SelectInput/SelectInput.js";
+import StandaloneCheckBoxInput from "../lib/components/CheckBoxInput/StandaloneCheckBoxInput.js";
+import StandaloneFileBrowserInput from "../lib/components/FileBrowserInput/StandaloneFileBrowserInput.js";
+import StandaloneRadioGroupInput from "../lib/components/RadioGroupInput/StandaloneRadioGroupInput.js";
+import StandaloneSelectInput from "../lib/components/SelectInput/StandaloneSelectInput.js";
+import StandaloneTextInput from "../lib/components/TextInput/StandaloneTextInput.js";
+import TextInput from "../lib/components/TextInput/TextInput.js";
 
 const HomePage = () => {
   /* Form */

@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import CheckBoxInputPage from "./components/CheckBoxInput/index.js";
-import FileBrowserInput from "./components/FileBrowserInput/index.js";
-import HomePage from "./components/home.js";
-import ProgressBarPage from "./components/ProgressBar/index.js";
-import RadioGroupInputPage from "./components/RadioGroupInput/index.js";
-import SelectInputPage from "./components/SelectInput/index.js";
-import TextInputPage from "./components/TextInput/index.js";
+import CheckBoxInputPage from "./pages/CheckBoxInputPage.js";
+import FileBrowserInput from "./pages/FileBrowserInputPage.js";
+import HomePage from "./pages/home.js";
+import ProgressBarPage from "./pages/ProgressBarPage.js";
+import RadioGroupInputPage from "./pages/RadioGroupInputPage.js";
+import SelectInputPage from "./pages/SelectInputPage.js";
+import TextInputPage from "./pages/TextInputPage.js";
 import "./App.scss";
 
 function App() {
