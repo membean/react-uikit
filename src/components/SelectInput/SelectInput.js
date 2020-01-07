@@ -56,7 +56,7 @@ import classnames from "classnames";
     value [String] - The value of the selected option (if there is one).
 */
 
-const SelectInput = props => {
+const SelectInput = React.forwardRef((props, ref) => {
   const {
     blankOption,
     classes,
@@ -160,6 +160,7 @@ const SelectInput = props => {
           onBlur={handleBlur}
           onChange={handleChange}
           onFocus={handleFocus}
+          ref={ref}
           value={state.value}
         >
           {renderOptions()}
@@ -180,7 +181,7 @@ const SelectInput = props => {
       )}
     </div>
   );
-};
+});
 
 SelectInput.propTypes = {
   blankOption: PropTypes.string,

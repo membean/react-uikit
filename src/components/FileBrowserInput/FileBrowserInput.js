@@ -44,7 +44,7 @@ import classnames from "classnames";
       "polite". This will allow a screen reader to finish reading whatever it is reading, then read the feedback, as opposed to interupting.
 */
 
-const FileBrowserInput = props => {
+const FileBrowserInput = React.forwardRef((props, ref) => {
   const {
     classes,
     disabled,
@@ -139,6 +139,7 @@ const FileBrowserInput = props => {
           onBlur={handleBlur}
           onChange={handleChange}
           onFocus={handleFocus}
+          ref={ref}
           type="file"
           value={state.value}
         />
@@ -162,7 +163,7 @@ const FileBrowserInput = props => {
       )}
     </div>
   );
-};
+});
 
 FileBrowserInput.propTypes = {
   classes: PropTypes.string,

@@ -7,13 +7,12 @@ import classnames from "classnames";
   
   Usage:
     
-    <CheckBoxInput
+    <TextInput
       feedbackContext="success"
-      feedbackText="You must check this box."
-      id="my-checkbox"
-      label="Agree to the terms and conditions"
-      name="myCheckbox"
-      value={false}
+      feedbackText="Your name has been updated successfully."
+      id="my-text-input"
+      label="Enter your name"
+      name="myName"
     />
   
   Props:
@@ -55,7 +54,7 @@ import classnames from "classnames";
     value [Boolean] - Whether or not the checkbox is checked. Defaults to false.
 */
 
-const TextInput = props => {
+const TextInput = React.forwardRef((props, ref) => {
   const {
     autoComplete,
     classes,
@@ -146,6 +145,7 @@ const TextInput = props => {
         onFocus={handleFocus}
         placeholder={placeholder || null}
         readOnly={readOnly || null}
+        ref={ref}
         step={step || null}
         type={type || "text"}
         value={state.value}
@@ -165,7 +165,7 @@ const TextInput = props => {
       )}
     </div>
   );
-};
+});
 
 TextInput.propTypes = {
   autoComplete: PropTypes.string,

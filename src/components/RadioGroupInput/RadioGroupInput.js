@@ -62,7 +62,7 @@ import classnames from "classnames";
     value [String] - The value of the option to be selected.
 */
 
-const RadioGroupInput = props => {
+const RadioGroupInput = React.forwardRef((props, ref) => {
   const {
     classes,
     disabled,
@@ -119,6 +119,7 @@ const RadioGroupInput = props => {
           onChange={event => {
             handleChange(event, option.value);
           }}
+          ref={index === 0 ? ref : null}
           selected={isSelected}
           value={option.value}
         />
@@ -138,7 +139,7 @@ const RadioGroupInput = props => {
       {renderOptions()}
     </fieldset>
   );
-};
+});
 
 RadioGroupInput.propTypes = {
   classes: PropTypes.string,

@@ -45,7 +45,7 @@ import classnames from "classnames";
     value [Boolean] - Whether or not the checkbox is checked. Defaults to false.
 */
 
-const CheckBoxInput = props => {
+const CheckBoxInput = React.forwardRef((props, ref) => {
   const {
     classes,
     disabled,
@@ -65,6 +65,7 @@ const CheckBoxInput = props => {
 
   const [state, setState] = useState({ value: value || false });
 
+  // TODO: This should not be necessary...
   useEffect(() => {
     setState({ value: value || false });
   }, [value]);
@@ -123,6 +124,7 @@ const CheckBoxInput = props => {
           onBlur={handleBlur}
           onChange={handleChange}
           onFocus={handleFocus}
+          ref={ref}
           type="checkbox"
         />
         <span className="control-indicator" aria-hidden="true"></span>
@@ -133,6 +135,7 @@ const CheckBoxInput = props => {
         className={feedbackClasses}
         dangerouslySetInnerHTML={{ __html: feedbackText || null }}
         id={feedbackId}
+        role="alert"
       />
       {helperText && (
         <div
@@ -143,7 +146,7 @@ const CheckBoxInput = props => {
       )}
     </div>
   );
-};
+});
 
 CheckBoxInput.propTypes = {
   classes: PropTypes.string,

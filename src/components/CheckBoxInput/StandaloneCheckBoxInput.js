@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import CheckBoxInput from "./CheckBoxInput.js";
 
 const StandaloneCheckBoxInput = () => {
+  const inputEl = useRef(null);
   const [checkBoxState, setCheckBoxState] = useState({
     id: "standalone-checkbox",
     helperText:
       "Checking this box will remove timers when you are answering questions during training and taking quizzes. You'll still be timed, but you won't see the timers.",
-    isValid: true,
     label: "Hide timers during training and quizzes",
     name: "appCheckbox",
     value: false
@@ -31,9 +31,21 @@ const StandaloneCheckBoxInput = () => {
     }, 2000);
   };
 
+  console.log(checkBoxState.feedbackContext);
+
+  if (checkBoxState.feedbackContext === "error") {
+    console.log("Error: should focus input");
+    console.log(inputEl.current);
+    inputEl.current.focus();
+  }
+
   return (
     <div className="section">
-      <CheckBoxInput {...checkBoxState} onChange={handleCheckboxChange} />
+      <CheckBoxInput
+        {...checkBoxState}
+        onChange={handleCheckboxChange}
+        ref={inputEl}
+      />
     </div>
   );
 };

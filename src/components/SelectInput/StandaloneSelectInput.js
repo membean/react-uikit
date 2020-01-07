@@ -60,7 +60,6 @@ const StandaloneSelectInput = () => {
           feedbackText: "Special events are our specialty."
         };
       } else {
-        console.log("Trapped");
         feedback = {
           ...feedback,
           feedbackContext: null,
