@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TextInput from "./TextInput.js";
 
 const StandaloneTextInput = () => {
+  const inputEl = useRef(null);
+
   const [textInputState, setTextInputState] = useState({
     helperText:
       "We use the <tt>onBlur</tt> event here to trigger an action. Best practice is to use <tt>onBlur</tt> for things like validation, since validating with <tt>onChange</tt> is noisy and un-intuitive to a non-sighted user. Enter a value to simulate a successful update, and remove the value to simulate an update failure.",
@@ -9,6 +11,12 @@ const StandaloneTextInput = () => {
     label: "Standalone Control:",
     name: "appTextInput",
     value: ""
+  });
+
+  useEffect(() => {
+    if (textInputState.feedbackContext === "error") {
+      inputEl.current.focus();
+    }
   });
 
   const handleBlur = event => {
@@ -45,6 +53,7 @@ const StandaloneTextInput = () => {
         {...textInputState}
         onBlur={handleBlur}
         onChange={handleChange}
+        ref={inputEl}
       />
     </div>
   );

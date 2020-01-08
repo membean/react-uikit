@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CheckBoxInput from "./CheckBoxInput.js";
 
 const StandaloneCheckBoxInput = () => {
   const inputEl = useRef(null);
+
   const [checkBoxState, setCheckBoxState] = useState({
     id: "standalone-checkbox",
     helperText:
@@ -10,6 +11,12 @@ const StandaloneCheckBoxInput = () => {
     label: "Hide timers during training and quizzes",
     name: "appCheckbox",
     value: false
+  });
+
+  useEffect(() => {
+    if (checkBoxState.feedbackContext === "error") {
+      inputEl.current.focus();
+    }
   });
 
   const handleCheckboxChange = _event => {
@@ -33,10 +40,6 @@ const StandaloneCheckBoxInput = () => {
       setCheckBoxState({ ...checkBoxState, ...feedback });
     }, 2000);
   };
-
-  if (checkBoxState.feedbackContext === "error") {
-    inputEl.current.focus();
-  }
 
   return (
     <div className="section">

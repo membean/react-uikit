@@ -20,6 +20,12 @@ const RadioButtonInput = props => {
   const helperId = helperText ? `${id}-helper` : "";
   const itemClasses = `radiogroup-item control ${disabled ? "disabled" : ""}`;
 
+  /*
+    NOTE: Avoid onBlur, onChange, and onFocus side effects, since a keyboard
+          user has to go between each option to read them, and each time they
+          tab to one it will be selected. That means that all three of these
+          events will fire even if someone is simply browsing through the choices.
+  */
   return (
     <div className={itemClasses}>
       <label className="radio">

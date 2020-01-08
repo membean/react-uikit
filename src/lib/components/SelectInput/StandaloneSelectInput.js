@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SelectInput from "./SelectInput.js";
 
 const StandaloneSelectInput = () => {
+  const inputEl = useRef(null);
+
   const options = [
     {
       label: "Get special offers from us every hour, on the hour",
@@ -26,6 +28,12 @@ const StandaloneSelectInput = () => {
     label: "Select a newsletter to subscribe to:",
     name: "mySelectMenu",
     options: options
+  });
+
+  useEffect(() => {
+    if (selectState.feedbackContext === "error") {
+      inputEl.current.focus();
+    }
   });
 
   const handleSelectChange = event => {
@@ -73,7 +81,11 @@ const StandaloneSelectInput = () => {
 
   return (
     <div className="section">
-      <SelectInput {...selectState} onChange={handleSelectChange} />
+      <SelectInput
+        {...selectState}
+        onChange={handleSelectChange}
+        ref={inputEl}
+      />
     </div>
   );
 };
