@@ -20,8 +20,8 @@ import classnames from "classnames";
     audibleFeedback [String] - This component has a hidden live region that will report
       audibleFeedback audibly when it changes. WARNING: Do not update this every time
       the progress bar is updated, or it will be noisy for screen readers. Instead,
-      only pass this prop when progress hits 100, so that the user will be
-      informed of the completion.
+      only pass this prop when progress starts (if started by a user action) or when it
+      hits 100 to avoid unusable noise.
     classes [String] - Additional CSS classes that will be added to the control
       container div element.
     description [String] - (Required) Text that will be read by a screen reader
