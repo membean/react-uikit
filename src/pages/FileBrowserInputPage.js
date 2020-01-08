@@ -12,6 +12,7 @@ const FileBrowserInputPage = () => {
           id="browser-1"
           label="Disabled file browser"
           name="disabledFileBrowser"
+          prompt="Choose a file..."
         />
       </div>
       <div className="section">
@@ -19,6 +20,7 @@ const FileBrowserInputPage = () => {
           id="browser-2"
           label="Enabled file browser"
           name="invalidFileBrowser"
+          prompt="Choose a file..."
         />
       </div>
       <div className="section">
@@ -29,6 +31,7 @@ const FileBrowserInputPage = () => {
           isValid={false}
           label="Invalid file browser"
           name="invalidFileBrowser"
+          prompt="Choose a file..."
         />
       </div>
       <div className="section">
@@ -37,6 +40,7 @@ const FileBrowserInputPage = () => {
           id="browser-4"
           label="File browser with description"
           name="invalidFileBrowser"
+          prompt="Choose a file..."
         />
       </div>
       <StandaloneFileBrowserInput />

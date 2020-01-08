@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
@@ -42,6 +42,8 @@ import classnames from "classnames";
       Receives the event and input value as arguments.
     polite [Boolean] - Set the aria-live attribute of the feedback element to
       "polite". This will allow a screen reader to finish reading whatever it is reading, then read the feedback, as opposed to interupting.
+    prompt [String] - (required) The text prompt that will display in the file browser
+      input. This will be read by screen readers, so it should be descriptive.
 */
 
 const FileBrowserInput = React.forwardRef((props, ref) => {
@@ -60,13 +62,9 @@ const FileBrowserInput = React.forwardRef((props, ref) => {
     onBlur,
     onChange,
     onFocus,
-    polite
+    polite,
+    prompt
   } = props;
-
-  const [state, setState] = useState({
-    prompt: "Choose file...",
-    files: null
-  });
 
   const controlClasses = classnames("file", "control", classes, {
     disabled: disabled,
@@ -95,32 +93,6 @@ const FileBrowserInput = React.forwardRef((props, ref) => {
     }
   };
 
-  const handleBlur = event => {
-    const files = event.target.files;
-    onBlur && onBlur(event, files);
-  };
-
-  const handleChange = event => {
-    const files = event.target.files;
-    setState({ ...state, files: files, prompt: setPrompt(files) });
-    onChange && onChange(event, files);
-  };
-
-  const handleFocus = event => {
-    const files = event.target.files;
-    onFocus && onFocus(event, files);
-  };
-
-  const setPrompt = files => {
-    if (files.length > 1) {
-      return `${files.length} files selected...`;
-    } else if (files.length === 1) {
-      return files[0].name;
-    } else {
-      return "Choose file(s)...";
-    }
-  };
-
   return (
     <div className={controlClasses}>
       {!inline && (
@@ -136,16 +108,15 @@ const FileBrowserInput = React.forwardRef((props, ref) => {
           id={id}
           multiple={multiple || null}
           name={name}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          onFocus={handleFocus}
+          onBlur={onBlur}
+          onChange={onChange}
+          onFocus={onFocus}
           ref={ref}
           type="file"
-          value={state.value}
         />
         <span aria-hidden="true" className="file-browser"></span>
         <span aria-hidden="true" className="file-browser-prompt">
-          {state.prompt}
+          {prompt}
         </span>
       </label>
       <div
@@ -179,7 +150,8 @@ FileBrowserInput.propTypes = {
   multiple: PropTypes.bool,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
-  polite: PropTypes.bool
+  polite: PropTypes.bool,
+  prompt: PropTypes.string.isRequired
 };
 
 export default FileBrowserInput;
