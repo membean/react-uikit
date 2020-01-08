@@ -149,6 +149,7 @@ const SelectInput = React.forwardRef((props, ref) => {
         className={feedbackClasses}
         dangerouslySetInnerHTML={{ __html: feedbackText || null }}
         id={feedbackId}
+        role="alert"
       />
       {helperText && (
         <div

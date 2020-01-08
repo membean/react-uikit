@@ -1,29 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ProgressBar from "../lib/components/ProgressBar/ProgressBar.js";
+import StandaloneProgressBar from "../lib/components/ProgressBar/StandaloneProgressBar.js";
 
 const ProgressBarPage = () => {
-  const [progressState, setprogressState] = useState({
-    message: "",
-    progress: 0
-  });
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const progress = progressState.progress;
-      if (progress < 100) {
-        setprogressState({
-          message: `Your file is ${progress}% uploaded.`,
-          progress: progress + 1
-        });
-      } else {
-        setprogressState({
-          message: "Your file has been uploaded."
-        });
-        clearTimeout(timer);
-      }
-    }, 500);
-  });
-
   return (
     <div>
       <h1>Progress Bar</h1>
@@ -76,12 +55,15 @@ const ProgressBarPage = () => {
       </div>
       <div className="section">
         <ProgressBar
-          description={progressState.message}
+          description="Full width progress bar"
           id="pb6"
           label="Uploading"
           tooltip="bottom"
-          value={parseInt(progressState.progress)}
+          value={45}
         />
+      </div>
+      <div className="section">
+        <StandaloneProgressBar />
       </div>
     </div>
   );

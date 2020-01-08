@@ -550,6 +550,11 @@ $file-browser-height: 2rem;
       transition: width 0.1s;
     }
 
+    &:focus {
+      box-shadow: 0 0 0 $outline-width $outline-color;
+      outline: none;
+    }
+
     &:hover {
       .progress-meter {
         background-color: $blue;

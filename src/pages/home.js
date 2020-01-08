@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CheckBoxInput from "../lib/components/CheckBoxInput/CheckBoxInput.js";
 import FileBrowserInput from "../lib/components/FileBrowserInput/FileBrowserInput.js";
-import ProgressBar from "../lib/components/ProgressBar/ProgressBar.js";
 import RadioGroupInput from "../lib/components/RadioGroupInput/RadioGroupInput.js";
 import SelectInput from "../lib/components/SelectInput/SelectInput.js";
 import StandaloneCheckBoxInput from "../lib/components/CheckBoxInput/StandaloneCheckBoxInput.js";
 import StandaloneFileBrowserInput from "../lib/components/FileBrowserInput/StandaloneFileBrowserInput.js";
 import StandaloneRadioGroupInput from "../lib/components/RadioGroupInput/StandaloneRadioGroupInput.js";
+import StandaloneProgressBar from "../lib/components/ProgressBar/StandaloneProgressBar.js";
 import StandaloneSelectInput from "../lib/components/SelectInput/StandaloneSelectInput.js";
 import StandaloneTextInput from "../lib/components/TextInput/StandaloneTextInput.js";
 import TextInput from "../lib/components/TextInput/TextInput.js";
@@ -129,29 +129,6 @@ const HomePage = () => {
     { label: "Easy", value: "easy" }
   ];
 
-  /* Progress Bar */
-  const [progressState, setprogressState] = useState({
-    message: "",
-    progress: 0
-  });
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const progress = progressState.progress;
-      if (progress < 100) {
-        setprogressState({
-          message: `Your file is ${progress}% uploaded.`,
-          progress: progress + 1
-        });
-      } else {
-        setprogressState({
-          message: "Your file has been uploaded."
-        });
-        clearTimeout(timer);
-      }
-    }, 100);
-  });
-
   return (
     <form onSubmit={handleFormSubmit}>
       <h1>Sample Form</h1>
@@ -249,24 +226,6 @@ const HomePage = () => {
         />
       </div>
       <div className="section">
-        <label
-          style={{
-            display: "block",
-            fontWeight: "bold",
-            marginBottom: "0.5rem"
-          }}
-        >
-          Progress Bar:
-        </label>
-        <ProgressBar
-          description={progressState.message}
-          id="progress-bar-1"
-          label="Uploading File"
-          tooltip="bottom"
-          value={parseInt(progressState.progress)}
-        />
-      </div>
-      <div className="section">
         <button className="btn control" type="submit">
           {`${formState.valid ? "Show validation" : "Reset form"}`}
         </button>
@@ -284,6 +243,16 @@ const HomePage = () => {
       <StandaloneRadioGroupInput />
       <StandaloneSelectInput />
       <StandaloneTextInput />
+      <label
+        style={{
+          display: "block",
+          fontWeight: "bold",
+          marginBottom: "0.5rem"
+        }}
+      >
+        Progress Bar:
+      </label>
+      <StandaloneProgressBar />
     </form>
   );
 };

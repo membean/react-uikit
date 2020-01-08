@@ -16,7 +16,12 @@ import classnames from "classnames";
     />
   
   Props:
-
+  
+    audibleFeedback [String] - This component has a hidden live region that will report
+      audibleFeedback audibly when it changes. WARNING: Do not update this every time
+      the progress bar is updated, or it will be noisy for screen readers. Instead,
+      only pass this prop when progress hits 100, so that the user will be
+      informed of the completion.
     classes [String] - Additional CSS classes that will be added to the control
       container div element.
     description [String] - (Required) Text that will be read by a screen reader
@@ -27,6 +32,8 @@ import classnames from "classnames";
       to service non-sighted users.
     id [String] - (Required) The id attribute of the input element.
     label [String] - (required) Text that will be read by a screen reader.
+    polite [Boolean] - Set the audibleFeedback live region to be "polite" instead of
+      "assertive" (default).
     tooltip [String] - One of "bottom", "left", "right" and "top". Displays the description text as a tooltip on hover. The tooltip position will match
       the value given, but will be updated if the tooltip will not be visible.
       The "default" tooltip is a full-screen, mobile friendly version.
@@ -38,8 +45,18 @@ import classnames from "classnames";
       any updates are provided to the user in an accessible manner.
 */
 
-const ProgressBar = props => {
-  const { classes, description, id, label, tooltip, value } = props;
+const ProgressBar = React.forwardRef((props, ref) => {
+  const {
+    audibleFeedback,
+    classes,
+    description,
+    id,
+    label,
+    polite,
+    tooltip,
+    value
+  } = props;
+
   const tooltipRef = useRef(null);
 
   const controlClasses = classnames("progress", "control", classes);
@@ -122,9 +139,6 @@ const ProgressBar = props => {
     }
   };
 
-  // TODO: Hidden live region to support feedbackText, so that completion
-  //       of something like a file upload can be reported.
-
   return (
     <div className={controlClasses}>
       <div
@@ -134,8 +148,11 @@ const ProgressBar = props => {
         aria-valuemin={0}
         aria-valuenow={value ? parseInt(value) : 0}
         className="progress-bar"
+        id={id}
         onMouseEnter={handleMouseEnter}
+        ref={ref}
         role="progressbar"
+        tabIndex="-1"
       >
         <div className="progress-meter" style={{ width: `${value}%` }}></div>
       </div>
@@ -147,15 +164,23 @@ const ProgressBar = props => {
       >
         {description}
       </span>
+      <div
+        aria-live={polite ? "polite" : "assertive"}
+        className="visually-hidden"
+        dangerouslySetInnerHTML={{ __html: audibleFeedback || null }}
+        role="alert"
+      />
     </div>
   );
-};
+});
 
 ProgressBar.propTypes = {
+  audibleFeedback: PropTypes.string,
   classes: PropTypes.string,
   description: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  polite: PropTypes.bool,
   tooltip: PropTypes.oneOf(["bottom", "left", "right", "top"]),
   value: (props, propName, componentName) => {
     if (typeof props[propName] !== "number") {

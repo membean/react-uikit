@@ -30,7 +30,8 @@ const StandaloneRadioGroupInput = () => {
     options: options
   });
 
-  const handleRadioGroupChange = (_event, value) => {
+  const handleRadioGroupChange = event => {
+    const value = event.target.value;
     setradioGroupState({
       ...radioGroupState,
       disabled: true,

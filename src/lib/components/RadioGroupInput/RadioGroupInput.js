@@ -4,8 +4,11 @@ import RadioButtonInput from "./RadioButtonInput.js";
 import classnames from "classnames";
 
 /*
-  Renders a radio button group. Follows the W3C accessible design patterns:
-  https://www.w3.org/TR/wai-aria-practices-1.1/#radiobutton
+  Renders a radio button group.
+  NOTE: Does not expose onBlur and onFocus functions for the underlying
+        radio inputs. Accessible keyboard navigation uses arrow keys to
+        move between the options, and attaching behavior to the onBlur
+        and onFocus events would be unexpected by the user.  
   
   Usage:
 
@@ -97,10 +100,10 @@ const RadioGroupInput = React.forwardRef((props, ref) => {
   });
   const legendClasses = isValid === false ? "invalid" : null;
 
-  const handleChange = (event, value) => {
-    const newValue = value;
-    setState({ value: newValue });
-    onChange && onChange(event, newValue);
+  const handleChange = event => {
+    const value = event.target.value;
+    setState({ value });
+    onChange && onChange(event);
   };
 
   const renderOptions = () => {
@@ -116,9 +119,7 @@ const RadioGroupInput = React.forwardRef((props, ref) => {
           key={index}
           label={option.label}
           name={name}
-          onChange={event => {
-            handleChange(event, option.value);
-          }}
+          onChange={handleChange}
           ref={index === 0 ? ref : null}
           selected={isSelected}
           value={option.value}
@@ -135,6 +136,7 @@ const RadioGroupInput = React.forwardRef((props, ref) => {
         className={feedbackClasses}
         dangerouslySetInnerHTML={{ __html: feedbackText || null }}
         id={feedbackId}
+        role="alert"
       />
       {renderOptions()}
     </fieldset>
