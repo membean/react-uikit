@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
@@ -81,12 +81,6 @@ const TextInput = React.forwardRef((props, ref) => {
     value
   } = props;
 
-  const [state, setState] = useState({ value: value || "" });
-
-  useEffect(() => {
-    setState({ value: value || "" });
-  }, [value]);
-
   const controlClasses = classnames("text", "control", classes, {
     disabled: disabled,
     inline: inline,
@@ -113,20 +107,6 @@ const TextInput = React.forwardRef((props, ref) => {
     }
   };
 
-  const handleBlur = event => {
-    onBlur && onBlur(event, event.target.value);
-  };
-
-  const handleChange = event => {
-    const newValue = event.target.value;
-    setState({ value: newValue });
-    onChange && onChange(event, newValue);
-  };
-
-  const handleFocus = event => {
-    onFocus && onFocus(event, event.target.value);
-  };
-
   return (
     <div className={controlClasses}>
       <label htmlFor={id}>{label}</label>
@@ -134,21 +114,21 @@ const TextInput = React.forwardRef((props, ref) => {
         aria-describedby={getDescribedByIds()}
         autoComplete={autoComplete || "off"}
         className={inputClasses}
+        defaultValue={value}
         disabled={disabled}
         id={id}
         name={name}
         max={max || null}
         maxLength={maxLength || null}
         min={min || null}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        onFocus={handleFocus}
+        onBlur={onBlur}
+        onChange={onChange}
+        onFocus={onFocus}
         placeholder={placeholder || null}
         readOnly={readOnly || null}
         ref={ref}
         step={step || null}
         type={type || "text"}
-        value={state.value}
       />
       <div
         aria-live={polite ? "polite" : "assertive"}

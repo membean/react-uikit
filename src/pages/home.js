@@ -98,10 +98,6 @@ const HomePage = () => {
       };
     }
 
-    /*
-      TODO Ability to add focus on any input element when validation fails.
-    */
-
     setformState(newState);
   };
 

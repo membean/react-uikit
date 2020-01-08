@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
@@ -77,12 +77,6 @@ const SelectInput = React.forwardRef((props, ref) => {
     value
   } = props;
 
-  const [state, setState] = useState({ value: value || false });
-
-  useEffect(() => {
-    setState({ value: value || false });
-  }, [value]);
-
   const controlClasses = classnames("select", "control", classes, {
     disabled: disabled,
     inline: inline,
@@ -107,22 +101,6 @@ const SelectInput = React.forwardRef((props, ref) => {
         helperText ? helperId : ""
       }`;
     }
-  };
-
-  const handleBlur = event => {
-    const value = event.target.value;
-    onBlur && onBlur(event, value);
-  };
-
-  const handleChange = event => {
-    const newValue = event.target.value;
-    setState({ value: newValue });
-    onChange && onChange(event, newValue);
-  };
-
-  const handleFocus = event => {
-    const value = event.target.value;
-    onFocus && onFocus(event, value);
   };
 
   const renderOptions = () => {
@@ -154,14 +132,14 @@ const SelectInput = React.forwardRef((props, ref) => {
           aria-label={label ? null : blankOption || null}
           aria-describedby={getDescribedByIds()}
           className={inputClasses}
+          defaultValue={value}
           disabled={disabled}
           id={id}
           name={name}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          onFocus={handleFocus}
+          onBlur={onBlur}
+          onChange={onChange}
+          onFocus={onFocus}
           ref={ref}
-          value={state.value}
         >
           {renderOptions()}
         </select>

@@ -28,7 +28,8 @@ const StandaloneSelectInput = () => {
     options: options
   });
 
-  const handleSelectChange = (_event, value) => {
+  const handleSelectChange = event => {
+    const value = event.target.value;
     setSelectState({
       ...selectState,
       disabled: true,

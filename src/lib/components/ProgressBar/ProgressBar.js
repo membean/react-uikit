@@ -122,6 +122,9 @@ const ProgressBar = props => {
     }
   };
 
+  // TODO: Hidden live region to support feedbackText, so that completion
+  //       of something like a file upload can be reported.
+
   return (
     <div className={controlClasses}>
       <div

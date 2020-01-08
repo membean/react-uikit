@@ -12,12 +12,14 @@ const StandaloneCheckBoxInput = () => {
     value: false
   });
 
-  const handleCheckboxChange = (_event, value) => {
+  const handleCheckboxChange = _event => {
+    const value = !checkBoxState.value;
     setCheckBoxState({
       ...checkBoxState,
       disabled: true,
       feedbackContext: "busy",
-      feedbackText: "Updating timer settings&hellip;"
+      feedbackText: "Updating timer settings&hellip;",
+      value: value
     });
     setTimeout(() => {
       const feedback = {
@@ -25,17 +27,14 @@ const StandaloneCheckBoxInput = () => {
         feedbackContext: value ? "success" : "error",
         feedbackText: value
           ? `Timer settings updated successfully.`
-          : 'Uh, oh! Something went wrong updating your timer settings. Please try again. If you continue to have problems, please <a href="mailto:support@membean.com">contact support</a> for assistance.'
+          : 'Uh, oh! Something went wrong updating your timer settings. Please try again. If you continue to have problems, please <a href="mailto:support@membean.com">contact support</a> for assistance.',
+        value: value
       };
       setCheckBoxState({ ...checkBoxState, ...feedback });
     }, 2000);
   };
 
-  console.log(checkBoxState.feedbackContext);
-
   if (checkBoxState.feedbackContext === "error") {
-    console.log("Error: should focus input");
-    console.log(inputEl.current);
     inputEl.current.focus();
   }
 

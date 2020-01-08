@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
@@ -63,13 +63,6 @@ const CheckBoxInput = React.forwardRef((props, ref) => {
     value
   } = props;
 
-  const [state, setState] = useState({ value: value || false });
-
-  // TODO: This should not be necessary...
-  useEffect(() => {
-    setState({ value: value || false });
-  }, [value]);
-
   const controlClasses = classnames("checkbox", "control", classes, {
     disabled
   });
@@ -94,36 +87,20 @@ const CheckBoxInput = React.forwardRef((props, ref) => {
     }
   };
 
-  const handleBlur = event => {
-    const value = event.target.value;
-    onBlur && onBlur(event, value);
-  };
-
-  const handleChange = event => {
-    const newValue = !state.value;
-    setState({ value: newValue });
-    onChange && onChange(event, newValue);
-  };
-
-  const handleFocus = event => {
-    const value = event.target.value;
-    onFocus && onFocus(event, value);
-  };
-
   return (
     <div className={controlClasses}>
       <label>
         <input
-          aria-checked={state.value}
+          aria-checked={value}
           aria-describedby={getDescribedByIds()}
           className={inputClasses}
-          checked={state.value}
+          defaultChecked={value}
           disabled={disabled}
           id={id}
           name={name}
-          onBlur={handleBlur}
-          onChange={handleChange}
-          onFocus={handleFocus}
+          onBlur={onBlur}
+          onChange={onChange}
+          onFocus={onFocus}
           ref={ref}
           type="checkbox"
         />

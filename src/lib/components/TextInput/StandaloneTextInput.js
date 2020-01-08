@@ -11,32 +11,41 @@ const StandaloneTextInput = () => {
     value: ""
   });
 
-  const handleBlur = (event, value) => {
-    if (value !== textInputState.value) {
-      setTextInputState({
-        ...textInputState,
-        disabled: true,
-        feedbackContext: "busy",
-        feedbackText: "Updating setting&hellip;",
-        value: value
-      });
-      setTimeout(() => {
-        const feedback = {
-          disabled: false,
-          feedbackContext: value ? "success" : "error",
-          feedbackText: value
-            ? `Setting updated successfully.`
-            : 'Uh, oh! Something went wrong updating your setting. Please try again. If you continue to have problems, please <a href="mailto:support@membean.com">contact support</a> for assistance.',
-          value: value
-        };
-        setTextInputState({ ...textInputState, ...feedback });
-      }, 2000);
-    }
+  const handleBlur = event => {
+    setTextInputState({
+      ...textInputState,
+      disabled: true,
+      feedbackContext: "busy",
+      feedbackText: "Updating setting&hellip;"
+    });
+    setTimeout(() => {
+      const inputHasContent = textInputState.value !== "";
+      const feedback = {
+        disabled: false,
+        feedbackContext: inputHasContent ? "success" : "error",
+        feedbackText: inputHasContent
+          ? `Setting updated successfully.`
+          : 'Uh, oh! Something went wrong updating your setting. Please try again. If you continue to have problems, please <a href="mailto:support@membean.com">contact support</a> for assistance.'
+      };
+      setTextInputState({ ...textInputState, ...feedback });
+    }, 2000);
+  };
+
+  const handleChange = event => {
+    const value = event.target.value;
+    setTextInputState({
+      ...textInputState,
+      value
+    });
   };
 
   return (
     <div className="section">
-      <TextInput {...textInputState} onBlur={handleBlur} />
+      <TextInput
+        {...textInputState}
+        onBlur={handleBlur}
+        onChange={handleChange}
+      />
     </div>
   );
 };
