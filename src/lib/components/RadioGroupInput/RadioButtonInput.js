@@ -53,7 +53,7 @@ RadioButtonInput.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   selected: PropTypes.bool,
   value: PropTypes.string.isRequired
 };

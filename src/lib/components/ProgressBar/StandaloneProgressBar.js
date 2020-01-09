@@ -17,11 +17,11 @@ const StandaloneProgressBar = () => {
       if (value <= 100) {
         setprogressState({
           audibleFeedback: completed
-            ? "Your file upload has completed."
-            : "Your file is uplaoding.",
+            ? "Your file upload has completed"
+            : "Your file is uploadings",
           description: completed
-            ? "Your file has been uploaded."
-            : `Your file is ${value}% uploaded.`,
+            ? "Your file has been uploaded"
+            : `Your file is ${value}% uploaded`,
           value: completed ? 100 : value + 1
         });
       }
@@ -39,7 +39,7 @@ const StandaloneProgressBar = () => {
         id="progress-bar"
         label="Uploading"
         ref={progressEl}
-        tooltip="top"
+        tooltip="bottom"
         value={progressState.value}
       />
     </div>

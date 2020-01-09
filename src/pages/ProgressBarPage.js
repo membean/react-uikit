@@ -1,14 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import ProgressBar from "../lib/components/ProgressBar/ProgressBar.js";
 import StandaloneProgressBar from "../lib/components/ProgressBar/StandaloneProgressBar.js";
 
 const ProgressBarPage = () => {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    ref.current.focus();
-  });
-
   return (
     <div>
       <h1>Progress Bar</h1>
@@ -36,7 +30,6 @@ const ProgressBarPage = () => {
             description="You have encountered 25 out of 100 words in Level 3."
             id="pb3"
             label="Level 3"
-            ref={ref}
             tooltip="top"
             value={25}
           />
@@ -60,18 +53,7 @@ const ProgressBarPage = () => {
           />
         </div>
       </div>
-      <div className="section">
-        <ProgressBar
-          description="Full width progress bar"
-          id="pb6"
-          label="Uploading"
-          tooltip="bottom"
-          value={45}
-        />
-      </div>
-      <div className="section">
-        <StandaloneProgressBar />
-      </div>
+      <StandaloneProgressBar />
     </div>
   );
 };
