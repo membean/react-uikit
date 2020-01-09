@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import SelectInput from "./SelectInput.js";
+import SelectInput from "../lib/components/SelectInput/SelectInput.js";
 
 const StandaloneSelectInput = () => {
   const inputEl = useRef(null);

@@ -1,6 +1,6 @@
 import React from "react";
 import FileBrowserInput from "../lib/components/FileBrowserInput/FileBrowserInput.js";
-import StandaloneFileBrowserInput from "../lib/components/FileBrowserInput/StandaloneFileBrowserInput.js";
+import StandaloneFileBrowserInput from "../components/StandaloneFileBrowserInput.js";
 
 const FileBrowserInputPage = () => {
   return (

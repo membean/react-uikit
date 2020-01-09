@@ -1,6 +1,6 @@
 import React from "react";
 import RadioGroupInput from "../lib/components/RadioGroupInput/RadioGroupInput.js";
-import StandaloneRadioGroupInput from "../lib/components/RadioGroupInput/StandaloneRadioGroupInput.js";
+import StandaloneRadioGroupInput from "../components/StandaloneRadioGroupInput.js";
 
 const RadioGroupInputPage = () => {
   const HELPTEXT =

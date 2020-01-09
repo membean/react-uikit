@@ -3,12 +3,12 @@ import CheckBoxInput from "../lib/components/CheckBoxInput/CheckBoxInput.js";
 import FileBrowserInput from "../lib/components/FileBrowserInput/FileBrowserInput.js";
 import RadioGroupInput from "../lib/components/RadioGroupInput/RadioGroupInput.js";
 import SelectInput from "../lib/components/SelectInput/SelectInput.js";
-import StandaloneCheckBoxInput from "../lib/components/CheckBoxInput/StandaloneCheckBoxInput.js";
-import StandaloneFileBrowserInput from "../lib/components/FileBrowserInput/StandaloneFileBrowserInput.js";
-import StandaloneRadioGroupInput from "../lib/components/RadioGroupInput/StandaloneRadioGroupInput.js";
-import StandaloneProgressBar from "../lib/components/ProgressBar/StandaloneProgressBar.js";
-import StandaloneSelectInput from "../lib/components/SelectInput/StandaloneSelectInput.js";
-import StandaloneTextInput from "../lib/components/TextInput/StandaloneTextInput.js";
+import StandaloneCheckBoxInput from "../components/StandaloneCheckBoxInput.js";
+import StandaloneFileBrowserInput from "../components/StandaloneFileBrowserInput.js";
+import StandaloneRadioGroupInput from "../components/StandaloneRadioGroupInput.js";
+import StandaloneProgressBar from "../components/StandaloneProgressBar.js";
+import StandaloneSelectInput from "../components/StandaloneSelectInput.js";
+import StandaloneTextInput from "../components/StandaloneTextInput.js";
 import TextInput from "../lib/components/TextInput/TextInput.js";
 
 const HomePage = () => {

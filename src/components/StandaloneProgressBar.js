@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import ProgressBar from "./ProgressBar.js";
+import ProgressBar from "../lib/components/ProgressBar/ProgressBar.js";
 
 const StandaloneProgressBar = () => {
   const progressEl = useRef(null);

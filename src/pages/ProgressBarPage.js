@@ -1,6 +1,6 @@
 import React from "react";
 import ProgressBar from "../lib/components/ProgressBar/ProgressBar.js";
-import StandaloneProgressBar from "../lib/components/ProgressBar/StandaloneProgressBar.js";
+import StandaloneProgressBar from "../components/StandaloneProgressBar.js";
 
 const ProgressBarPage = () => {
   return (

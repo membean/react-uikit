@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import TextInput from "./TextInput.js";
+import TextInput from "../lib/components/TextInput/TextInput.js";
 
 const StandaloneTextInput = () => {
   const inputEl = useRef(null);

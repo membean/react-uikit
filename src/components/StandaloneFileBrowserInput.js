@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FileBrowserInput from "./FileBrowserInput.js";
+import FileBrowserInput from "../lib/components/FileBrowserInput/FileBrowserInput.js";
 
 const StandaloneFileBrowserInput = () => {
   const emptyPrompt = "Choose file(s)...";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import RadioGroupInput from "./RadioGroupInput.js";
+import RadioGroupInput from "../lib/components/RadioGroupInput/RadioGroupInput.js";
 
 const StandaloneRadioGroupInput = () => {
   const options = [

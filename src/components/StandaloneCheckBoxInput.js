@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import CheckBoxInput from "./CheckBoxInput.js";
+import CheckBoxInput from "../lib/components/CheckBoxInput/CheckBoxInput.js";
 
 const StandaloneCheckBoxInput = () => {
   const inputEl = useRef(null);
