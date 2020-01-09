@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import RadioButtonInput from "./RadioButtonInput.js";
 import classnames from "classnames";
@@ -81,12 +81,6 @@ const RadioGroupInput = React.forwardRef((props, ref) => {
     value
   } = props;
 
-  const [state, setState] = useState({ value: value || null });
-
-  useEffect(() => {
-    setState({ value: value || null });
-  }, [value]);
-
   const feedbackClasses = classnames(
     "control-feedback",
     `${feedbackContext || "error"}`,
@@ -100,15 +94,9 @@ const RadioGroupInput = React.forwardRef((props, ref) => {
   });
   const legendClasses = isValid === false ? "invalid" : null;
 
-  const handleChange = event => {
-    const value = event.target.value;
-    setState({ value });
-    onChange && onChange(event);
-  };
-
   const renderOptions = () => {
     return options.map((option, index) => {
-      const isSelected = option.value === state.value;
+      const isSelected = option.value === value;
       const optionId = `${id}-option-${index + 1}`;
 
       return (
@@ -119,7 +107,7 @@ const RadioGroupInput = React.forwardRef((props, ref) => {
           key={index}
           label={option.label}
           name={name}
-          onChange={handleChange}
+          onChange={onChange}
           ref={index === 0 ? ref : null}
           selected={isSelected}
           value={option.value}
