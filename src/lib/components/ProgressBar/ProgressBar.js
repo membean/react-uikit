@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
+import positionTooltip from "../../helpers/positionTooltip.js";
 
 /*
 
@@ -68,75 +69,7 @@ const ProgressBar = React.forwardRef((props, ref) => {
 
   const handleMouseEnter = event => {
     const currentTooltip = tooltipRef.current;
-    const bounds = currentTooltip.getBoundingClientRect();
-
-    const spaceAbove = bounds.top > 1;
-    const spaceBelow = bounds.bottom < window.innerHeight - 1;
-    const spaceLeft = bounds.left > 1;
-    const spaceRight = bounds.right < window.innerWidth - 1;
-
-    const replacePosition = newPosition => {
-      currentTooltip.classList.replace(
-        `tooltip-${tooltip}`,
-        `tooltip-${newPosition}`
-      );
-    };
-
-    switch (tooltip) {
-      case "bottom":
-        if (!spaceBelow) {
-          if (spaceAbove) {
-            replacePosition("top");
-          } else if (spaceLeft) {
-            replacePosition("left");
-          } else if (spaceRight) {
-            replacePosition("right");
-          } else {
-            replacePosition("default");
-          }
-        }
-        break;
-      case "left":
-        if (!spaceLeft) {
-          if (spaceRight) {
-            replacePosition("right");
-          } else if (spaceAbove) {
-            replacePosition("top");
-          } else if (spaceBelow) {
-            replacePosition("bottom");
-          } else {
-            replacePosition("default");
-          }
-        }
-        break;
-      case "right":
-        if (!spaceRight) {
-          if (spaceLeft) {
-            replacePosition("left");
-          } else if (spaceAbove) {
-            replacePosition("top");
-          } else if (spaceBelow) {
-            replacePosition("bottom");
-          } else {
-            replacePosition("default");
-          }
-        }
-        break;
-      default:
-        // NOTE: Defaults to "top"
-        if (!spaceAbove) {
-          if (spaceBelow) {
-            replacePosition("bottom");
-          } else if (spaceLeft) {
-            replacePosition("left");
-          } else if (spaceRight) {
-            replacePosition("right");
-          } else {
-            replacePosition("default");
-          }
-        }
-        break;
-    }
+    positionTooltip(currentTooltip, tooltip);
   };
 
   return (
@@ -161,6 +94,7 @@ const ProgressBar = React.forwardRef((props, ref) => {
         className={descriptionClasses}
         id={descriptionId}
         ref={tooltipRef}
+        role={tooltip && `tooltip`}
       >
         {description}
       </span>

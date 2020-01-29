@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CheckBoxInputPage from "./pages/CheckBoxInputPage.js";
+import DefinitionTooltipPage from "./pages/DefinitionTooltipPage.js";
 import FileBrowserInput from "./pages/FileBrowserInputPage.js";
 import HomePage from "./pages/home.js";
 import ProgressBarPage from "./pages/ProgressBarPage.js";
@@ -19,6 +20,9 @@ function App() {
           </li>
           <li>
             <Link to="/components/checkbox">CheckBox Input</Link>
+          </li>
+          <li>
+            <Link to="/components/definition-tooltip">Definition Tooltip</Link>
           </li>
           <li>
             <Link to="/components/file-browser">File Browser Input</Link>
@@ -43,6 +47,9 @@ function App() {
           </Route>
           <Route exact path="/components/checkbox">
             <CheckBoxInputPage />
+          </Route>
+          <Route exact path="/components/definition-tooltip">
+            <DefinitionTooltipPage />
           </Route>
           <Route exact path="/components/file-browser">
             <FileBrowserInput />
