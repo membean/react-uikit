@@ -9,38 +9,37 @@ const DefinitionTooltipPage = () => {
         <ol>
           <li>
             <DefinitionTooltip
-              definition="When you abolish someone, you make them donec id elit non mi porta gravida at eget metus."
-              explanation="You saw this word on Jan 3, 2020."
+              definition="This is basic tooltip that does not link to anything."
               id="abolish-tooltip"
-              position="left"
               term="abolish"
             />
           </li>
           <li>
             <DefinitionTooltip
-              definition="When you abridge someone, you make them donec id elit non mi porta gravida at eget metus."
+              definition="This is a tooltip with a url prop. To be used when linking outside of the React app."
               explanation='You checked "I Know This" for this word on Jan 3, 2020.'
               id="abridge-tooltip"
-              position="right"
+              position="left"
               term="abridge"
               url="/mywords/abridge"
             />
           </li>
           <li>
             <DefinitionTooltip
-              definition="Someone who has an abstract manner is donec id elit non mi porta gravida at eget metus."
+              definition="This is a tooltip with an onClick prop. To be used when clicking the button should do something."
               id="abstract-tooltip"
               onClick={() => {
                 console.log("Button Clicked!");
               }}
+              position="bottom"
               term="abstract"
             />
           </li>
           <li>
             <DefinitionTooltip
-              definition="Someone who has an abstract manner is donec id elit non mi porta gravida at eget metus."
+              definition="This is a tooltip with a Link prop. To be used when linking with React Router."
               id="abstract-tooltip"
-              position="bottom"
+              link="/components/definition-tooltip"
               term="abstract"
             />
           </li>

@@ -89,7 +89,7 @@ const ProgressBar = React.forwardRef((props, ref) => {
       >
         <div className="progress-meter" style={{ width: `${value}%` }}></div>
       </div>
-      <span
+      <div
         aria-hidden="true"
         className={descriptionClasses}
         id={descriptionId}
@@ -97,7 +97,7 @@ const ProgressBar = React.forwardRef((props, ref) => {
         role={tooltip && `tooltip`}
       >
         {description}
-      </span>
+      </div>
       <div
         aria-live={polite ? "polite" : "assertive"}
         className="visually-hidden"

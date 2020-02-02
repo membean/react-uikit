@@ -382,7 +382,7 @@ a {
 
 /* DEFINITION TOOLTIP */
 
-.definition-tooltip {
+.dfn-tooltip {
   display: inline-block;
   position: relative;
 
@@ -504,17 +504,16 @@ a {
   }
 
   &-trigger {
-    /*
-      TODO: <span> should not look like a link or a button.
-    */
     border: none;
     background: none;
+    color: $blue;
     font-family: inherit;
     font-size: 100%;
     line-height: 1.15;
     margin: 0;
     overflow: visible;
     padding: 0;
+    text-decoration: underline;
     text-transform: none;
 
     &:focus {
@@ -524,7 +523,9 @@ a {
 
     &:focus,
     &:hover {
-      & ~ .definition-tooltip-bubble {
+      color: $green;
+
+      & ~ [role="tooltip"] {
         clip: auto; /* IE6, IE7 */
         height: auto; // iPad
         overflow: visible;
@@ -538,17 +539,6 @@ a {
           position: absolute;
           width: auto;
         }
-      }
-    }
-
-    &:not(span) {
-      color: $blue;
-      text-decoration: underline;
-
-      &:focus,
-      &:hover {
-        color: $green;
-        cursor: pointer;
       }
     }
   }

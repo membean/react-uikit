@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import positionTooltip from "../../helpers/positionTooltip.js";
@@ -17,7 +18,16 @@ import positionTooltip from "../../helpers/positionTooltip.js";
   
   Props:
 
-    TODO:
+    classes [String] - Additional CSS classes that will be added to the control
+      container div element.
+    definition [String] - (Required) The definition of the term.
+    explanation [String] - Additional text to be displayed in the tooltip, after the definition.
+    id [String] - (Required) The id attribute of the input element.
+    link [String] - A path to be passed to React Router. Will take preference over onClick and url.
+    onClick [Function] - A function to run when the button is clicked.
+    position [String] - The tooltip position. One of "bottom", "left", "right", or "top".
+    term [String] - (Required) The term to display. Hovering over it will reveal the tooltip.
+    url [String] - A url to link to. Will take precedence over onClick.
 */
 
 const DefinitionTooltip = props => {
@@ -33,7 +43,9 @@ const DefinitionTooltip = props => {
     url
   } = props;
 
+  const tooltipElementId = `${id}-desc`;
   const tooltipRef = useRef(null);
+  const triggerClass = classnames("dfn-tooltip-trigger", classes);
 
   const handleMouseEnter = event => {
     const currentTooltip = tooltipRef.current;
@@ -41,41 +53,20 @@ const DefinitionTooltip = props => {
   };
 
   const renderTriggerElement = () => {
-    const triggerClass = classnames("definition-tooltip-trigger", classes);
-    const triggerDescription = `${id}-desc`;
     if (link) {
-      // Render a Link component to navigate within the React app.
-      return renderLinkComponent();
+      return renderLink();
     } else if (url) {
-      // Render an HTML link to navigate to another URL.
-      return renderHtmlLink(triggerClass, triggerDescription);
-    } else if (onClick) {
-      // Render an HTML button that will do something when clicked.
-      return renderHtmlButton(triggerClass, triggerDescription);
+      return renderAnchor();
     } else {
-      // Render a span that acts like a definition tooltip.
-      return renderHtmlSpan(triggerClass, triggerDescription);
+      return renderButton();
     }
   };
 
-  const renderHtmlButton = (classes, describeBy) => {
-    return (
-      <button
-        aria-describedby={describeBy}
-        className={classes}
-        onClick={onClick}
-        onMouseEnter={handleMouseEnter}
-      >
-        {term}
-      </button>
-    );
-  };
-
-  const renderHtmlLink = (classes, describeBy) => {
+  const renderAnchor = () => {
     return (
       <a
-        aria-describedby={describeBy}
-        className={classes}
+        aria-labelledby={tooltipElementId}
+        className={triggerClass}
         href={url}
         onMouseEnter={handleMouseEnter}
       >
@@ -84,42 +75,47 @@ const DefinitionTooltip = props => {
     );
   };
 
-  const renderHtmlSpan = (classes, describeBy) => {
+  const renderButton = () => {
     return (
-      <span
-        aria-describedby={describeBy}
-        className={classes}
+      <button
+        aria-labelledby={tooltipElementId}
+        className={triggerClass}
+        onClick={onClick}
         onMouseEnter={handleMouseEnter}
       >
         {term}
-      </span>
+      </button>
     );
   };
 
-  const renderLinkComponent = () => {
-    // TODO: Render a passed in Link component.
-    // TODO: Need to somehow add the onMouseEnter event for positioning.
-    return { link };
+  const renderLink = () => {
+    return (
+      <Link
+        aria-labelledby={tooltipElementId}
+        className={triggerClass}
+        onMouseEnter={handleMouseEnter}
+        to={link}
+      >
+        {term}
+      </Link>
+    );
   };
 
   return (
-    <div className="definition-tooltip">
+    <div className="dfn-tooltip">
       {renderTriggerElement()}
       <div
-        className={classnames(
-          "definition-tooltip-bubble",
-          `tooltip-${position}`
-        )}
+        className={classnames("dfn-tooltip-bubble", `tooltip-${position}`)}
         id={`${id}-desc`}
         ref={tooltipRef}
         role="tooltip"
       >
         <p>
-          <dfn aria-hidden="true">{term}:</dfn> {definition}
+          <dfn>{`${term}:`}</dfn> {definition}
         </p>
         {explanation && (
           <p
-            className="definition-tooltip-explanation"
+            className="dfn-tooltip-explanation"
             dangerouslySetInnerHTML={{ __html: explanation }}
           />
         )}
@@ -132,19 +128,12 @@ DefinitionTooltip.defaultProps = {
   position: "top"
 };
 
-// TODO: Should not be able to have link, onClick, or url at the same time, or
-//       we need to decide which one would take precedent. Currenlty
-//       orders by link, url, then onClick.
-//       Can have link (<Link>) OR onClick (<button>) OR url (<a>) OR none.
-//       Cannot have more than one, though.
-//       Link must be a Link component.
 DefinitionTooltip.propTypes = {
   classes: PropTypes.string,
   definition: PropTypes.string.isRequired,
   explanation: PropTypes.string,
   id: PropTypes.string.isRequired,
-  // link: PropTypes.instanceOf(Link),
-  link: PropTypes.node,
+  link: PropTypes.string,
   onClick: PropTypes.func,
   position: PropTypes.oneOf(["bottom", "left", "right", "top"]),
   term: PropTypes.string.isRequired,
