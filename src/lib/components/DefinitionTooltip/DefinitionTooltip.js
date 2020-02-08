@@ -114,11 +114,13 @@ const DefinitionTooltip = props => {
           dangerouslySetInnerHTML={{
             __html: `<dfn>${term}:</dfn> ${definition}`
           }}
+          id={`${id}-definition`}
         />
         {explanation && (
           <p
             className="dfn-tooltip-explanation"
             dangerouslySetInnerHTML={{ __html: explanation }}
+            id={`${id}-explanation`}
           />
         )}
       </div>
