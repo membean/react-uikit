@@ -111,8 +111,9 @@ const DefinitionTooltip = props => {
         role="tooltip"
       >
         <p
-          className="dfn-tooltip-explanation"
-          dangerouslySetInnerHTML={{ __html: {`<dfn>${term}:</dfn> ${definition}`} }}
+          dangerouslySetInnerHTML={{
+            __html: `<dfn>${term}:</dfn> ${definition}`
+          }}
         />
         {explanation && (
           <p
