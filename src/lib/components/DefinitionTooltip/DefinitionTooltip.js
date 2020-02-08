@@ -110,9 +110,10 @@ const DefinitionTooltip = props => {
         ref={tooltipRef}
         role="tooltip"
       >
-        <p>
-          <dfn>{`${term}:`}</dfn> {definition}
-        </p>
+        <p
+          className="dfn-tooltip-explanation"
+          dangerouslySetInnerHTML={{ __html: {`<dfn>${term}:</dfn> ${definition}`} }}
+        />
         {explanation && (
           <p
             className="dfn-tooltip-explanation"
