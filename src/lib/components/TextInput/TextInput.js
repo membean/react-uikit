@@ -49,6 +49,7 @@ import classnames from "classnames";
       "polite". This will allow a screen reader to finish reading whatever it
       is reading, then read the feedback, as opposed to interupting.
     readOnly [Boolean] - Set the input element to read only.
+    required [Boolean] - Mark the input as required in a form.
     step [Number] - The step attribute of the input element.
     type [String] - The type of input element. Defaults to "text". One of "date", "datetime-local", "email", "month", "number", "password", "range", "search", "tel", "text", "time", "url", or "week".
     value [Boolean] - Whether or not the checkbox is checked. Defaults to false.
@@ -76,6 +77,7 @@ const TextInput = React.forwardRef((props, ref) => {
     placeholder,
     polite,
     readOnly,
+    required,
     step,
     type,
     value
@@ -127,6 +129,7 @@ const TextInput = React.forwardRef((props, ref) => {
         placeholder={placeholder || null}
         readOnly={readOnly || null}
         ref={ref}
+        required={required}
         step={step || null}
         type={type || "text"}
       />
@@ -169,6 +172,7 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   polite: PropTypes.bool,
   readOnly: PropTypes.bool,
+  required: PropTypes.bool,
   step: PropTypes.number,
   type: PropTypes.oneOf([
     "date",
@@ -186,6 +190,10 @@ TextInput.propTypes = {
     "week"
   ]),
   value: PropTypes.string
+};
+
+TextInput.defaultProps = {
+  required: false
 };
 
 export default TextInput;
