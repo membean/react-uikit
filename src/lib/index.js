@@ -5,9 +5,11 @@ import RadioGroupInput from "./components/RadioGroupInput/RadioGroupInput.js";
 import RadioButtonInput from "./components/RadioGroupInput/RadioButtonInput.js";
 import SelectInput from "./components/SelectInput/SelectInput.js";
 import TextInput from "./components/TextInput/TextInput.js";
+import DefinitionTooltip from "./components/DefinitionTooltip/DefinitionTooltip.js";
 
 export {
   CheckBoxInput,
+  DefinitionTooltip,
   FileBrowserInput,
   ProgressBar,
   RadioGroupInput,
