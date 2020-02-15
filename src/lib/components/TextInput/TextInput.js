@@ -116,7 +116,6 @@ const TextInput = React.forwardRef((props, ref) => {
         aria-describedby={getDescribedByIds()}
         autoComplete={autoComplete || "off"}
         className={inputClasses}
-        defaultValue={value}
         disabled={disabled}
         id={id}
         name={name}
@@ -132,6 +131,7 @@ const TextInput = React.forwardRef((props, ref) => {
         required={required}
         step={step || null}
         type={type || "text"}
+        value={value}
       />
       <div
         aria-live={polite ? "polite" : "assertive"}

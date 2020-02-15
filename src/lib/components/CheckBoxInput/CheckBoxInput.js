@@ -94,7 +94,6 @@ const CheckBoxInput = React.forwardRef((props, ref) => {
           aria-checked={value}
           aria-describedby={getDescribedByIds()}
           className={inputClasses}
-          defaultChecked={value}
           disabled={disabled}
           id={id}
           name={name}
@@ -103,6 +102,7 @@ const CheckBoxInput = React.forwardRef((props, ref) => {
           onFocus={onFocus}
           ref={ref}
           type="checkbox"
+          value={value}
         />
         <span className="control-indicator" aria-hidden="true"></span>
         <span className="control-label">{label}</span>

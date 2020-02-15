@@ -132,7 +132,6 @@ const SelectInput = React.forwardRef((props, ref) => {
           aria-label={label ? null : blankOption || null}
           aria-describedby={getDescribedByIds()}
           className={inputClasses}
-          defaultValue={value}
           disabled={disabled}
           id={id}
           name={name}
@@ -140,6 +139,7 @@ const SelectInput = React.forwardRef((props, ref) => {
           onChange={onChange}
           onFocus={onFocus}
           ref={ref}
+          value={value}
         >
           {renderOptions()}
         </select>
