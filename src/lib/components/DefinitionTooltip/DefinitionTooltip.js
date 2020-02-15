@@ -67,11 +67,12 @@ const DefinitionTooltip = props => {
       <a
         aria-labelledby={tooltipElementId}
         className={triggerClass}
+        dangerouslySetInnerHTML={{
+          __html: term
+        }}
         href={url}
         onMouseEnter={handleMouseEnter}
-      >
-        {term}
-      </a>
+      />
     );
   };
 
@@ -80,11 +81,12 @@ const DefinitionTooltip = props => {
       <button
         aria-labelledby={tooltipElementId}
         className={triggerClass}
+        dangerouslySetInnerHTML={{
+          __html: term
+        }}
         onClick={onClick}
         onMouseEnter={handleMouseEnter}
-      >
-        {term}
-      </button>
+      />
     );
   };
 
@@ -96,7 +98,11 @@ const DefinitionTooltip = props => {
         onMouseEnter={handleMouseEnter}
         to={link}
       >
-        {term}
+        <span
+          dangerouslySetInnerHTML={{
+            __html: term
+          }}
+        />
       </Link>
     );
   };

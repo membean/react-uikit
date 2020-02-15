@@ -7,6 +7,7 @@ import HomePage from "./pages/home.js";
 import ProgressBarPage from "./pages/ProgressBarPage.js";
 import RadioGroupInputPage from "./pages/RadioGroupInputPage.js";
 import SelectInputPage from "./pages/SelectInputPage.js";
+import TextAreaPage from "./pages/TextAreaPage.js";
 import TextInputPage from "./pages/TextInputPage.js";
 import "./App.scss";
 
@@ -37,7 +38,10 @@ function App() {
             <Link to="/components/select">Select Input</Link>
           </li>
           <li>
-            <Link to="/components/text">Text Input</Link>
+            <Link to="/components/text-area">Text Area</Link>
+          </li>
+          <li>
+            <Link to="/components/text-input">Text Input</Link>
           </li>
         </ul>
         <hr />
@@ -63,7 +67,10 @@ function App() {
           <Route exact path="/components/select">
             <SelectInputPage />
           </Route>
-          <Route exact path="/components/text">
+          <Route exact path="/components/text-area">
+            <TextAreaPage />
+          </Route>
+          <Route exact path="/components/text-input">
             <TextInputPage />
           </Route>
         </Switch>
