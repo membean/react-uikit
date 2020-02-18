@@ -55,5 +55,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "moment-timezone": "^0.5.27",
+    "react-datetime": "^2.16.3"
   }
 }

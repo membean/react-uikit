@@ -1,4 +1,5 @@
 import CheckBoxInput from "./components/CheckBoxInput/CheckBoxInput.js";
+import DatePickerInput from "./components/DatePickerInput/DatePickerInput.js";
 import DefinitionTooltip from "./components/DefinitionTooltip/DefinitionTooltip.js";
 import FileBrowserInput from "./components/FileBrowserInput/FileBrowserInput.js";
 import ProgressBar from "./components/ProgressBar/ProgressBar.js";
@@ -10,6 +11,7 @@ import TextInput from "./components/TextInput/TextInput.js";
 
 export {
   CheckBoxInput,
+  DatePickerInput,
   DefinitionTooltip,
   FileBrowserInput,
   ProgressBar,
