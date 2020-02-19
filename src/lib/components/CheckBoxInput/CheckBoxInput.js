@@ -93,6 +93,7 @@ const CheckBoxInput = React.forwardRef((props, ref) => {
         <input
           aria-checked={value}
           aria-describedby={getDescribedByIds()}
+          checked={value}
           className={inputClasses}
           disabled={disabled}
           id={id}

@@ -106,7 +106,7 @@ const DatePickerInput = React.forwardRef((props, ref) => {
     viewMode
   } = props;
 
-  const controlClasses = classnames("text", "control", classes, {
+  const controlClasses = classnames("text", "control", "datepicker", classes, {
     disabled: disabled,
     invalid: isValid !== undefined && !isValid
   });
@@ -160,8 +160,6 @@ const DatePickerInput = React.forwardRef((props, ref) => {
           required: required
         }}
         isValidDate={isValidDate || defaultIsValidDate}
-        maxDate={today.clone().add(2, "years")}
-        minDate={today.clone().endOf("day")}
         onBlur={onBlur}
         onChange={onChange}
         onFocus={onFocus}
@@ -169,7 +167,6 @@ const DatePickerInput = React.forwardRef((props, ref) => {
         onNavigateForward={onNavigateForward}
         onViewModeChange={onViewModeChange}
         open={open}
-        showTimeSelector={false}
         timeFormat={timeFormat || false}
         value={value ? moment(value) : null}
         viewDate={moment(viewDate)}
