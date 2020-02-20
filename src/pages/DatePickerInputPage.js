@@ -31,31 +31,36 @@ const DatePickerInputPage = () => {
       </div>
       <div className="section">
         <DatePickerInput
-          feedbackContext="error"
-          feedbackText="Lorem ipsum dolor sit amet."
           helperText="Select a date between now and 1 year from now."
           id="date-picker-3"
           label="Datepicker:"
           name="datepicker"
-          onChange={date => {
-            // NOTE: Validator needs to verify the format with a regex
-            //       How can we get the raw value of the input?
-            const value = document.getElementById("date-picker-3").value;
-            console.log(
-              "Valid: ",
-              value.match(
-                /(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{1,2})+,\s+(\d{4})/
-              )
-                ? true
-                : false
-            );
-            const dateIsMoment = moment.isMoment(date);
-            if (dateIsMoment) {
-              console.log("Date: ", date.tz(timezone).format("MMM D, YYYY"));
-            } else {
-              console.log("Value: ", date);
-            }
-          }}
+          onChange={console.log("Changed")}
+          timezone={timezone}
+          value={today}
+        />
+      </div>
+      <div className="section">
+        <DatePickerInput
+          feedbackContext="error"
+          feedbackText="Lorem ipsum dolor sit amet."
+          id="date-picker-4"
+          label="Datepicker:"
+          name="datepicker"
+          onChange={console.log("Changed")}
+          timezone={timezone}
+          value={today}
+        />
+      </div>
+      <div className="section">
+        <DatePickerInput
+          feedbackContext="success"
+          feedbackText="Lorem ipsum dolor sit amet."
+          helperText="Select a date between now and 1 year from now."
+          id="date-picker-4"
+          label="Datepicker:"
+          name="datepicker"
+          onChange={console.log("Changed")}
           timezone={timezone}
           value={today}
         />
