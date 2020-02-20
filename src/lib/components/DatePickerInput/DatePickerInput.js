@@ -174,6 +174,7 @@ const DatePickerInput = React.forwardRef((props, ref) => {
       <div className={containerClasses}>
         <div className="select-menu">
           <select
+            aria-label="Month"
             aria-describedby={getDescribedByIds()}
             className={inputClasses}
             disabled={disabled}
@@ -191,6 +192,7 @@ const DatePickerInput = React.forwardRef((props, ref) => {
         </div>
         <div className="select-menu">
           <select
+            aria-label="Day"
             aria-describedby={getDescribedByIds()}
             className={inputClasses}
             disabled={disabled}
@@ -208,6 +210,7 @@ const DatePickerInput = React.forwardRef((props, ref) => {
         </div>
         <div className="select-menu">
           <select
+            aria-label="Year"
             aria-describedby={getDescribedByIds()}
             className={inputClasses}
             disabled={disabled}
