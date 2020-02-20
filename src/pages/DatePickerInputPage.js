@@ -37,7 +37,7 @@ const DatePickerInputPage = () => {
           name="datepicker"
           onChange={console.log("Changed")}
           timezone={timezone}
-          value={today}
+          value="2020-02-24"
         />
       </div>
       <div className="section">
@@ -49,7 +49,7 @@ const DatePickerInputPage = () => {
           name="datepicker"
           onChange={console.log("Changed")}
           timezone={timezone}
-          value={today}
+          value="2020-02-24"
         />
       </div>
       <div className="section">
@@ -62,7 +62,7 @@ const DatePickerInputPage = () => {
           name="datepicker"
           onChange={console.log("Changed")}
           timezone={timezone}
-          value={today}
+          value="2020-02-24"
         />
       </div>
     </div>
