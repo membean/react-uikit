@@ -93,6 +93,10 @@ const DatePickerInput = React.forwardRef((props, ref) => {
     value
   } = props;
 
+  const containerClasses = classnames("select", "container", {
+    disabled,
+    invalid: isValid === false
+  });
   const feedbackClasses = classnames(
     "control-feedback",
     `${feedbackContext || "error"}`,
@@ -167,7 +171,7 @@ const DatePickerInput = React.forwardRef((props, ref) => {
   return (
     <fieldset className={fieldsetClasses} id={id} ref={ref}>
       <legend className={legendClasses}>{label}</legend>
-      <div className="select container">
+      <div className={containerClasses}>
         <div className="select-menu">
           <select
             aria-describedby={getDescribedByIds()}
