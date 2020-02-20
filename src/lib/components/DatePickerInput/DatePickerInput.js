@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import DateTime from "react-datetime";
 import moment from "moment-timezone";
 
 /*
@@ -76,40 +75,24 @@ import moment from "moment-timezone";
 
 const DatePickerInput = React.forwardRef((props, ref) => {
   const {
-    autoComplete,
     classes,
-    dateFormat,
     disabled,
     feedbackContext,
     feedbackText,
     id,
     isValid,
-    isValidDate,
     helperText,
     label,
     name,
     onBlur,
     onChange,
     onFocus,
-    onNavigateBack,
-    onNavigateForward,
-    onViewModeChange,
-    open,
-    placeholder,
     polite,
-    readOnly,
     required,
-    timeFormat,
     timezone,
-    value,
-    viewDate,
-    viewMode
+    value
   } = props;
 
-  const controlClasses = classnames("text", "control", "datepicker", classes, {
-    disabled: disabled,
-    invalid: isValid !== undefined && !isValid
-  });
   const feedbackClasses = classnames(
     "control-feedback",
     `${feedbackContext || "error"}`,
@@ -118,9 +101,9 @@ const DatePickerInput = React.forwardRef((props, ref) => {
     }
   );
   const feedbackId = `${id}-feedback`;
-  const helperId = `${id}-helper`;
-  const inputClasses = isValid === false ? "invalid" : null;
-
+  const fieldsetClasses = classnames("datepicker", "control", classes, {
+    disabled
+  });
   const getDescribedByIds = () => {
     if (!helperText && !feedbackText) {
       return null;
@@ -130,48 +113,113 @@ const DatePickerInput = React.forwardRef((props, ref) => {
       }`;
     }
   };
+  const helperId = `${id}-helper`;
+  const inputClasses = isValid === false ? "invalid" : null;
+  const legendClasses = isValid === false ? "invalid" : null;
 
-  const today = moment.tz(timezone);
-  const yesterday = today.subtract(1, "day");
-
-  const defaultIsValidDate = (currentDate, selectedDate) => {
-    return currentDate.isAfter(yesterday);
+  /*
+    TODO: Should make changes based on the date range that is allowed.
+          Also needs to change the "day" count based on the selected month/year.
+  */
+  const options = {
+    days: [
+      { label: "1", value: "1" },
+      { label: "2", value: "2" },
+      { label: "3", value: "3" }
+      // ...
+    ],
+    months: [
+      { label: "January", value: "1" },
+      { label: "February", value: "2" },
+      { label: "March", value: "3" }
+      // ...
+    ],
+    years: [
+      { label: "2020", value: "2020" },
+      { label: "2021", value: "2021" }
+    ]
   };
 
-  // TODO: Add additional (visually hidden) text to make sure someone knows
-  //       the correct format for entering the date manually.
+  console.log(options);
+
+  const renderOptions = unit => {
+    let optionsHTML = options[unit].map((option, index) => {
+      const optionId = `${id}-${unit}-option-${index + 1}`;
+
+      return (
+        <option id={optionId} key={index + 1} value={option.value}>
+          {option.label}
+        </option>
+      );
+    });
+    /*
+      TODO: If there is no current value for this component, return a blank
+            option like "Month", "Day", or "Year".
+            See the SelectInput component for example.
+
+      TODO: If the current value is outside of the allowed date range, make
+            the option disabled.
+            <option disabled selected id="" key="" value="">2010</option>
+    */
+    return optionsHTML;
+  };
+
   return (
-    <div className={controlClasses}>
-      <label htmlFor={id}>{label}</label>
-      <DateTime
-        closeOnSelect={true}
-        dateFormat={dateFormat || "MMM D, YYYY"}
-        displayTimeZone={timezone}
-        inputProps={{
-          "aria-describedby": getDescribedByIds(),
-          autoComplete: autoComplete || "off",
-          className: inputClasses,
-          disabled: disabled,
-          id: id,
-          name: name,
-          placeholder: placeholder || null,
-          readOnly: readOnly || null,
-          ref: ref,
-          required: required
-        }}
-        isValidDate={isValidDate || defaultIsValidDate}
-        onBlur={onBlur}
-        onChange={onChange}
-        onFocus={onFocus}
-        onNavigateBack={onNavigateBack}
-        onNavigateForward={onNavigateForward}
-        onViewModeChange={onViewModeChange}
-        open={open}
-        timeFormat={timeFormat || false}
-        value={value ? moment(value) : null}
-        viewDate={moment(viewDate)}
-        viewMode={viewMode}
-      />
+    <fieldset className={fieldsetClasses} id={id} ref={ref}>
+      <legend className={legendClasses}>{label}</legend>
+      <div className="select container">
+        <div className="select-menu">
+          <select
+            aria-describedby={getDescribedByIds()}
+            className={inputClasses}
+            disabled={disabled}
+            id={`${id}-month`}
+            name={`${name}Month`}
+            onBlur={onBlur}
+            onChange={onChange}
+            onFocus={onFocus}
+            required={required}
+            //size={options.month.length}
+            //value={}
+          >
+            {renderOptions("months")}
+          </select>
+        </div>
+        <div className="select-menu">
+          <select
+            aria-describedby={getDescribedByIds()}
+            className={inputClasses}
+            disabled={disabled}
+            id={`${id}-day`}
+            name={`${name}Day`}
+            onBlur={onBlur}
+            onChange={onChange}
+            onFocus={onFocus}
+            required={required}
+            //size={options.day.length}
+            //value={}
+          >
+            {renderOptions("days")}
+          </select>
+        </div>
+        <div className="select-menu">
+          <select
+            aria-describedby={getDescribedByIds()}
+            className={inputClasses}
+            disabled={disabled}
+            id={`${id}-year`}
+            name={`${name}Year`}
+            onBlur={onBlur}
+            onChange={onChange}
+            onFocus={onFocus}
+            required={required}
+            //size={options.year.length}
+            //value={}
+          >
+            {renderOptions("years")}
+          </select>
+        </div>
+      </div>
       <div
         aria-live={polite ? "polite" : "assertive"}
         className={feedbackClasses}
@@ -186,39 +234,27 @@ const DatePickerInput = React.forwardRef((props, ref) => {
           id={helperId}
         />
       )}
-    </div>
+    </fieldset>
   );
 });
 
 DatePickerInput.propTypes = {
-  autoComplete: PropTypes.string,
   classes: PropTypes.string,
-  dateFormat: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   disabled: PropTypes.bool,
   feedbackContext: PropTypes.oneOf(["busy", "error", "info", "success"]),
   feedbackText: PropTypes.string,
   id: PropTypes.string.isRequired,
   isValid: PropTypes.bool,
-  isValidDate: PropTypes.func,
   helperText: PropTypes.string,
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
-  onNavigateBack: PropTypes.func,
-  onNavigateForward: PropTypes.func,
-  onViewModeChange: PropTypes.func,
-  open: PropTypes.bool,
-  placeholder: PropTypes.string,
   polite: PropTypes.bool,
-  readOnly: PropTypes.bool,
   required: PropTypes.bool,
-  timeFormat: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   timezone: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  viewDate: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  viewMode: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  value: PropTypes.string
 };
 
 export default DatePickerInput;
