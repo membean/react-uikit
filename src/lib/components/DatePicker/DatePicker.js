@@ -11,7 +11,7 @@ import moment from "moment-timezone";
   
   Usage:
     
-    <DatePickerInput
+    <DatePicker
       id="datepicker-1"
       label="Exame Date"
       name="examDate"
@@ -40,6 +40,7 @@ import moment from "moment-timezone";
       get an idea of what this input is used for. This text will be read by screen
       readers when the input receives focus.
     label [String] - (required) The text label associated with the input.
+    maxDate [String] - Used to specify the max year available in the Date Picker.
     name [String] - (required) The name attribute of the input element.
     onBlur [Function] - A callback to be fired when the input element loses focus.
       Receives the event and input value as arguments.
@@ -73,7 +74,7 @@ import moment from "moment-timezone";
       https://github.com/YouCanBookMe/react-datetime
 */
 
-const DatePickerInput = React.forwardRef((props, ref) => {
+const DatePicker = React.forwardRef((props, ref) => {
   const {
     classes,
     disabled,
@@ -83,6 +84,7 @@ const DatePickerInput = React.forwardRef((props, ref) => {
     isValid,
     helperText,
     label,
+    maxDate,
     name,
     onBlur,
     onChange,
@@ -92,6 +94,14 @@ const DatePickerInput = React.forwardRef((props, ref) => {
     timezone,
     value
   } = props;
+  const formattedExamDate = value && moment.tz(value, timezone);
+  const selectedExamDay = value && formattedExamDate.date().toString();
+  const selectedExamMonth = value && formattedExamDate.format("MMMM");
+  const selectedExamYear = value && formattedExamDate.year().toString();
+
+  const maxYear = maxDate
+    ? moment.tz(maxDate, timezone).year()
+    : moment.tz(timezone).year() + 4;
 
   const containerClasses = classnames("select", "container", {
     disabled,
@@ -121,51 +131,97 @@ const DatePickerInput = React.forwardRef((props, ref) => {
   const inputClasses = isValid === false ? "invalid" : null;
   const legendClasses = isValid === false ? "invalid" : null;
 
-  /*
-    TODO: Should make changes based on the date range that is allowed.
-          Also needs to change the "day" count based on the selected month/year.
-  */
-  const options = {
-    days: [
-      { label: "1", value: "1" },
-      { label: "2", value: "2" },
-      { label: "3", value: "3" }
-      // ...
-    ],
-    months: [
-      { label: "January", value: "1" },
-      { label: "February", value: "2" },
-      { label: "March", value: "3" }
-      // ...
-    ],
-    years: [
-      { label: "2020", value: "2020" },
-      { label: "2021", value: "2021" }
-    ]
+  const generateDaysOptions = () => {
+    const isYearInRange = generateYearsOptions().find(
+      year => !year.disabled && year.value === selectedExamYear
+    );
+    return Array.from(
+      {
+        length: moment(`${selectedExamMonth} ${selectedExamYear}`).daysInMonth()
+      },
+      (_, i) => {
+        const dateNumber = i + 1;
+        return {
+          disabled: !isYearInRange,
+          label: dateNumber.toString(),
+          value: dateNumber.toString()
+        };
+      }
+    );
   };
 
-  console.log(options);
+  const generateYearsOptions = () => {
+    let yearOptions = [];
+    for (let i = moment.tz(timezone).year(); i <= maxYear; i++) {
+      yearOptions.push({
+        label: i.toString(),
+        value: i.toString()
+      });
+    }
+
+    if (yearOptions.find(year => year.value === selectedExamYear)) {
+      return yearOptions;
+    } else {
+      return [
+        {
+          disabled: true,
+          label: selectedExamYear,
+          value: selectedExamYear
+        },
+        ...yearOptions
+      ];
+    }
+  };
+
+  const longMonthNames = moment.months();
+
+  const generateMonthOptions = () =>
+    longMonthNames.map(m => {
+      return {
+        disabled: !generateYearsOptions().find(
+          year => !year.disabled && year.value === selectedExamYear
+        ),
+        label: m,
+        value: m
+      };
+    });
+
+  const options = {
+    days: generateDaysOptions(),
+    months: generateMonthOptions(),
+    years: generateYearsOptions()
+  };
 
   const renderOptions = unit => {
     let optionsHTML = options[unit].map((option, index) => {
       const optionId = `${id}-${unit}-option-${index + 1}`;
 
       return (
-        <option id={optionId} key={index + 1} value={option.value}>
+        <option
+          disabled={option.disabled}
+          id={optionId}
+          key={index + 1}
+          value={option.value}
+        >
           {option.label}
         </option>
       );
     });
-    /*
-      TODO: If there is no current value for this component, return a blank
-            option like "Month", "Day", or "Year".
-            See the SelectInput component for example.
-
-      TODO: If the current value is outside of the allowed date range, make
-            the option disabled.
-            <option disabled selected id="" key="" value="">2010</option>
-    */
     return optionsHTML;
+  };
+
+  const handleSelectChange = e => {
+    let momentString;
+    if (e.target.name.indexOf("Month") > -1) {
+      momentString = `${e.target.value} ${selectedExamDay}, ${selectedExamYear}`;
+    } else if (e.target.name.indexOf("Day") > -1) {
+      momentString = `${selectedExamMonth} ${e.target.value}, ${selectedExamYear}`;
+    } else if (e.target.name.indexOf("Year") > -1) {
+      momentString = `${selectedExamMonth} ${selectedExamDay}, ${e.target.value}`;
+    }
+    return (
+      momentString && onChange("examDate", moment(momentString).toISOString())
+    );
   };
 
   return (
@@ -181,12 +237,14 @@ const DatePickerInput = React.forwardRef((props, ref) => {
             id={`${id}-month`}
             name={`${name}Month`}
             onBlur={onBlur}
-            onChange={onChange}
+            onChange={handleSelectChange}
             onFocus={onFocus}
             required={required}
-            //size={options.month.length}
-            //value={}
+            value={selectedExamMonth}
           >
+            <option style={{ display: "none" }} value="">
+              Month
+            </option>
             {renderOptions("months")}
           </select>
         </div>
@@ -199,12 +257,14 @@ const DatePickerInput = React.forwardRef((props, ref) => {
             id={`${id}-day`}
             name={`${name}Day`}
             onBlur={onBlur}
-            onChange={onChange}
+            onChange={handleSelectChange}
             onFocus={onFocus}
             required={required}
-            //size={options.day.length}
-            //value={}
+            value={selectedExamDay}
           >
+            <option style={{ display: "none" }} value="">
+              Day
+            </option>
             {renderOptions("days")}
           </select>
         </div>
@@ -217,12 +277,14 @@ const DatePickerInput = React.forwardRef((props, ref) => {
             id={`${id}-year`}
             name={`${name}Year`}
             onBlur={onBlur}
-            onChange={onChange}
+            onChange={handleSelectChange}
             onFocus={onFocus}
             required={required}
-            //size={options.year.length}
-            //value={}
+            value={selectedExamYear}
           >
+            <option style={{ display: "none" }} value="">
+              Year
+            </option>
             {renderOptions("years")}
           </select>
         </div>
@@ -245,7 +307,7 @@ const DatePickerInput = React.forwardRef((props, ref) => {
   );
 });
 
-DatePickerInput.propTypes = {
+DatePicker.propTypes = {
   classes: PropTypes.string,
   disabled: PropTypes.bool,
   feedbackContext: PropTypes.oneOf(["busy", "error", "info", "success"]),
@@ -254,6 +316,7 @@ DatePickerInput.propTypes = {
   isValid: PropTypes.bool,
   helperText: PropTypes.string,
   label: PropTypes.string.isRequired,
+  maxDate: PropTypes.string,
   name: PropTypes.string.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
@@ -264,4 +327,4 @@ DatePickerInput.propTypes = {
   value: PropTypes.string
 };
 
-export default DatePickerInput;
+export default DatePicker;

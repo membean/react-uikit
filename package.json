@@ -18,15 +18,19 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "classnames": "^2.2.6",
+    "moment-timezone": "^0.5.27",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
+    "react-datetime": "git://github.com/membean/react-datetime.git#v2.16.3-membean8",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "serialize-javascript": "^2.1.2"
   },
   "peerDependencies": {
+    "moment-timezone": "^0.5.27",
     "react": "^16.12.0",
+    "react-datetime": "git://github.com/membean/react-datetime.git#v2.16.3-membean8",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2"
   },
@@ -55,9 +59,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "dependencies": {
-    "moment-timezone": "^0.5.27",
-    "react-datetime": "^2.16.3"
   }
 }
