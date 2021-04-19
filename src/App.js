@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CheckBoxInputPage from "./pages/CheckBoxInputPage.js";
-import DatePickerInputPage from "./pages/DatePickerInputPage.js";
+import DatePickerPage from "./pages/DatePickerPage.js";
 import DefinitionTooltipPage from "./pages/DefinitionTooltipPage.js";
 import FileBrowserInput from "./pages/FileBrowserInputPage.js";
 import HomePage from "./pages/home.js";
@@ -57,7 +57,7 @@ function App() {
             <CheckBoxInputPage />
           </Route>
           <Route exact path="/components/datepicker">
-            <DatePickerInputPage />
+            <DatePickerPage />
           </Route>
           <Route exact path="/components/definition-tooltip">
             <DefinitionTooltipPage />

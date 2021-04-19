@@ -1,8 +1,8 @@
 import React from "react";
-import DatePickerInput from "../lib/components/DatePickerInput/DatePickerInput.js";
+import DatePicker from "../lib/components/DatePicker/DatePicker";
 import moment from "moment-timezone";
 
-const DatePickerInputPage = () => {
+const DatePickerPage = () => {
   const timezone = "America/Los_Angeles";
   const today = moment.tz(timezone);
 
@@ -10,7 +10,7 @@ const DatePickerInputPage = () => {
     <div>
       <h1>DatePicker</h1>
       <div className="section">
-        <DatePickerInput
+        <DatePicker
           disabled={true}
           id="date-picker-1"
           label="Disabled:"
@@ -20,7 +20,7 @@ const DatePickerInputPage = () => {
         />
       </div>
       <div className="section">
-        <DatePickerInput
+        <DatePicker
           id="date-picker-2"
           isValid={false}
           label="Invalid:"
@@ -30,7 +30,7 @@ const DatePickerInputPage = () => {
         />
       </div>
       <div className="section">
-        <DatePickerInput
+        <DatePicker
           helperText="Select a date between now and 1 year from now."
           id="date-picker-3"
           label="Datepicker:"
@@ -41,7 +41,7 @@ const DatePickerInputPage = () => {
         />
       </div>
       <div className="section">
-        <DatePickerInput
+        <DatePicker
           feedbackContext="error"
           feedbackText="Lorem ipsum dolor sit amet."
           id="date-picker-4"
@@ -53,7 +53,7 @@ const DatePickerInputPage = () => {
         />
       </div>
       <div className="section">
-        <DatePickerInput
+        <DatePicker
           feedbackContext="success"
           feedbackText="Lorem ipsum dolor sit amet."
           helperText="Select a date between now and 1 year from now."
@@ -69,4 +69,4 @@ const DatePickerInputPage = () => {
   );
 };
 
-export default DatePickerInputPage;
+export default DatePickerPage;
