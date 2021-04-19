@@ -8,6 +8,7 @@ import RadioGroupInput from "./components/RadioGroupInput/RadioGroupInput.js";
 import SelectInput from "./components/SelectInput/SelectInput.js";
 import TextArea from "./components/TextArea/TextArea.js";
 import TextInput from "./components/TextInput/TextInput.js";
+import Tooltip from "./components/Tooltip/Tooltip.js";
 
 export {
   CheckBoxInput,
@@ -19,5 +20,6 @@ export {
   RadioButtonInput,
   SelectInput,
   TextArea,
-  TextInput
+  TextInput,
+  Tooltip,
 };

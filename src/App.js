@@ -10,6 +10,7 @@ import RadioGroupInputPage from "./pages/RadioGroupInputPage.js";
 import SelectInputPage from "./pages/SelectInputPage.js";
 import TextAreaPage from "./pages/TextAreaPage.js";
 import TextInputPage from "./pages/TextInputPage.js";
+import TooltipPage from "./pages/TooltipPage.js";
 import "./App.scss";
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
           <li>
             <Link to="/components/text-input">Text Input</Link>
           </li>
+          <li>
+            <Link to="/components/tooltip">Tooltip</Link>
+          </li>
         </ul>
         <hr />
         <Switch>
@@ -79,6 +83,9 @@ function App() {
           </Route>
           <Route exact path="/components/text-input">
             <TextInputPage />
+          </Route>
+          <Route exact path="/components/tooltip">
+            <TooltipPage />
           </Route>
         </Switch>
       </div>
