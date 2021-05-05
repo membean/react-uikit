@@ -29,6 +29,7 @@ import positionTooltip from "../../helpers/positionTooltip.js";
     onClick [Function] - A function to run when the button is clicked.
     position [String] - The tooltip position. One of "bottom", "left", "right", or "top".
     url [String] - A url to link to. Will take precedence over onClick.
+    buttonType [String] - A valid html button type that will render if the Tooltip is showing a <button>
 */
 
 const Tooltip = (props) => {
@@ -41,6 +42,7 @@ const Tooltip = (props) => {
     text,
     tooltipBody,
     url,
+    buttonType
   } = props;
 
   const tooltipElementId = `${id}-desc`;
@@ -82,6 +84,7 @@ const Tooltip = (props) => {
         className={triggerClass}
         onClick={onClick}
         onMouseEnter={handleMouseEnter}
+        type={buttonType}
       >
         {text}
       </button>
@@ -118,6 +121,7 @@ const Tooltip = (props) => {
 
 Tooltip.defaultProps = {
   position: "top",
+  buttonType: "button"
 };
 
 Tooltip.propTypes = {
@@ -129,6 +133,7 @@ Tooltip.propTypes = {
   position: PropTypes.oneOf(["bottom", "left", "right", "top"]),
   text: PropTypes.string.isRequired,
   url: PropTypes.string,
+  buttonType: PropTypes.oneOf(["button", "submit", "reset"]),
 };
 
 export default Tooltip;
