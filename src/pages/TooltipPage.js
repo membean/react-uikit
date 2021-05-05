@@ -43,6 +43,14 @@ const TooltipPage = () => {
               text="abstract"
             />
           </li>
+          <li>
+            <Tooltip
+              tooltipBody="This is a tooltip with type reset."
+              id="reset-tooltip"
+              text="reset"
+              buttonType="reset"
+            />
+          </li>
         </ol>
       </div>
     </div>
