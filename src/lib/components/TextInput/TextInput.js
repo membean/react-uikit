@@ -17,6 +17,7 @@ import classnames from "classnames";
   
   Props:
     autoComplete [String] - The autocomplete attribue of the input element. Defaults to "off". Options are outlined at: https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
+    autoFocus [Boolean] - sets the autoFocus prop on the input element. Defaults to false
     classes [String] - Additional CSS classes that will be added to the control
       container div element.
     disabled [Boolean] - Disable the input element.
@@ -58,6 +59,7 @@ import classnames from "classnames";
 const TextInput = React.forwardRef((props, ref) => {
   const {
     autoComplete,
+    autoFocus,
     classes,
     disabled,
     feedbackContext,
@@ -115,6 +117,7 @@ const TextInput = React.forwardRef((props, ref) => {
       <input
         aria-describedby={getDescribedByIds()}
         autoComplete={autoComplete || "off"}
+        autoFocus={autoFocus}
         className={inputClasses}
         disabled={disabled}
         id={id}
@@ -153,6 +156,7 @@ const TextInput = React.forwardRef((props, ref) => {
 
 TextInput.propTypes = {
   autoComplete: PropTypes.string,
+  autoFocus: PropTypes.boolean,
   classes: PropTypes.string,
   disabled: PropTypes.bool,
   feedbackContext: PropTypes.oneOf(["busy", "error", "info", "success"]),
@@ -193,6 +197,7 @@ TextInput.propTypes = {
 };
 
 TextInput.defaultProps = {
+  autoFocus: false,
   required: false
 };
 
