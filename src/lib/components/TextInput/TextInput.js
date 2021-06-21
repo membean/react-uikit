@@ -156,7 +156,7 @@ const TextInput = React.forwardRef((props, ref) => {
 
 TextInput.propTypes = {
   autoComplete: PropTypes.string,
-  autoFocus: PropTypes.boolean,
+  autoFocus: PropTypes.bool,
   classes: PropTypes.string,
   disabled: PropTypes.bool,
   feedbackContext: PropTypes.oneOf(["busy", "error", "info", "success"]),
