@@ -105,7 +105,7 @@ const CheckBoxInput = React.forwardRef((props, ref) => {
           onChange={onChange}
           onFocus={onFocus}
           ref={ref}
-          tabindex={removeFromTabOrder ? "-1" : "0"}
+          tabIndex={removeFromTabOrder ? "-1" : "0"}
           type="checkbox"
           value={value}
         />
