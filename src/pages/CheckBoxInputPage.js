@@ -51,6 +51,14 @@ const CheckBoxInputPage = () => {
           value={true}
         />
       </div>
+      <div className="section">
+        <CheckBoxInput
+          id="checkbox-2"
+          label="Checkbox with removeFromTabOrder set to true"
+          name="plainCheckbox"
+          removeFromTabOrder
+        />
+      </div>
       <StandaloneCheckBoxInput />
     </div>
   );

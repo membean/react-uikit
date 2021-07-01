@@ -42,6 +42,8 @@ import classnames from "classnames";
     polite [Boolean] - Set the aria-live attribute of the feedback element to
       "polite". This will allow a screen reader to finish reading whatever it
       is reading, then read the feedback, as opposed to interupting.
+    removeFromTabOrder [Boolean] - Sets tabindex="-1" on the input element to
+      make the elmenet unreachable by keyboard navigation.
     value [Boolean] - Whether or not the checkbox is checked. Defaults to false.
 */
 
@@ -60,17 +62,18 @@ const CheckBoxInput = React.forwardRef((props, ref) => {
     onChange,
     onFocus,
     polite,
-    value
+    removeFromTabOrder = false,
+    value,
   } = props;
 
   const controlClasses = classnames("checkbox", "control", classes, {
-    disabled
+    disabled,
   });
   const feedbackClasses = classnames(
     "control-feedback",
     `${feedbackContext || "error"}`,
     {
-      hidden: !feedbackText
+      hidden: !feedbackText,
     }
   );
   const feedbackId = `${id}-feedback`;
@@ -102,6 +105,7 @@ const CheckBoxInput = React.forwardRef((props, ref) => {
           onChange={onChange}
           onFocus={onFocus}
           ref={ref}
+          tabindex={removeFromTabOrder ? "-1" : "0"}
           type="checkbox"
           value={value}
         />
@@ -140,7 +144,8 @@ CheckBoxInput.propTypes = {
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   polite: PropTypes.bool,
-  value: PropTypes.bool
+  removeFromTabOrder: PropTypes.bool,
+  value: PropTypes.bool,
 };
 
 export default CheckBoxInput;
