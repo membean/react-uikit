@@ -92,7 +92,7 @@ const DatePicker = React.forwardRef((props, ref) => {
     polite,
     required,
     timezone,
-    value
+    value,
   } = props;
   const formattedExamDate = value && moment.tz(value, timezone);
   const selectedExamDay = value && formattedExamDate.date().toString();
@@ -105,18 +105,18 @@ const DatePicker = React.forwardRef((props, ref) => {
 
   const containerClasses = classnames("select", "container", {
     disabled,
-    invalid: isValid === false
+    invalid: isValid === false,
   });
   const feedbackClasses = classnames(
     "control-feedback",
     `${feedbackContext || "error"}`,
     {
-      "visually-hidden": !feedbackText
+      "visually-hidden": !feedbackText,
     }
   );
   const feedbackId = `${id}-feedback`;
   const fieldsetClasses = classnames("datepicker", "control", classes, {
-    disabled
+    disabled,
   });
   const getDescribedByIds = () => {
     if (!helperText && !feedbackText) {
@@ -133,18 +133,21 @@ const DatePicker = React.forwardRef((props, ref) => {
 
   const generateDaysOptions = () => {
     const isYearInRange = generateYearsOptions().find(
-      year => !year.disabled && year.value === selectedExamYear
+      (year) => !year.disabled && year.value === selectedExamYear
     );
     return Array.from(
       {
-        length: moment(`${selectedExamMonth} ${selectedExamYear}`).daysInMonth()
+        length: moment(
+          `${selectedExamMonth} ${selectedExamYear}`,
+          "MMMM YYYY"
+        ).daysInMonth(),
       },
       (_, i) => {
         const dateNumber = i + 1;
         return {
           disabled: !isYearInRange,
           label: dateNumber.toString(),
-          value: dateNumber.toString()
+          value: dateNumber.toString(),
         };
       }
     );
@@ -155,20 +158,20 @@ const DatePicker = React.forwardRef((props, ref) => {
     for (let i = moment.tz(timezone).year(); i <= maxYear; i++) {
       yearOptions.push({
         label: i.toString(),
-        value: i.toString()
+        value: i.toString(),
       });
     }
 
-    if (yearOptions.find(year => year.value === selectedExamYear)) {
+    if (yearOptions.find((year) => year.value === selectedExamYear)) {
       return yearOptions;
     } else {
       return [
         {
           disabled: true,
           label: selectedExamYear,
-          value: selectedExamYear
+          value: selectedExamYear,
         },
-        ...yearOptions
+        ...yearOptions,
       ];
     }
   };
@@ -176,23 +179,23 @@ const DatePicker = React.forwardRef((props, ref) => {
   const longMonthNames = moment.months();
 
   const generateMonthOptions = () =>
-    longMonthNames.map(m => {
+    longMonthNames.map((m) => {
       return {
         disabled: !generateYearsOptions().find(
-          year => !year.disabled && year.value === selectedExamYear
+          (year) => !year.disabled && year.value === selectedExamYear
         ),
         label: m,
-        value: m
+        value: m,
       };
     });
 
   const options = {
     days: generateDaysOptions(),
     months: generateMonthOptions(),
-    years: generateYearsOptions()
+    years: generateYearsOptions(),
   };
 
-  const renderOptions = unit => {
+  const renderOptions = (unit) => {
     let optionsHTML = options[unit].map((option, index) => {
       const optionId = `${id}-${unit}-option-${index + 1}`;
 
@@ -210,7 +213,7 @@ const DatePicker = React.forwardRef((props, ref) => {
     return optionsHTML;
   };
 
-  const handleSelectChange = e => {
+  const handleSelectChange = (e) => {
     let momentString;
     if (e.target.name.indexOf("Month") > -1) {
       momentString = `${e.target.value} ${selectedExamDay}, ${selectedExamYear}`;
@@ -324,7 +327,7 @@ DatePicker.propTypes = {
   polite: PropTypes.bool,
   required: PropTypes.bool,
   timezone: PropTypes.string.isRequired,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default DatePicker;
