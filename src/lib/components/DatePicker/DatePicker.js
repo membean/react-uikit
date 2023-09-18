@@ -223,7 +223,8 @@ const DatePicker = React.forwardRef((props, ref) => {
       momentString = `${selectedExamMonth} ${selectedExamDay}, ${e.target.value}`;
     }
     return (
-      momentString && onChange("examDate", moment(momentString).toISOString())
+      momentString &&
+      onChange("examDate", moment(momentString, "MM-DD-YYYY").toISOString())
     );
   };
 
