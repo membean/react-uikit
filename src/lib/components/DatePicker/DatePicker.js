@@ -215,13 +215,26 @@ const DatePicker = React.forwardRef((props, ref) => {
 
   const handleSelectChange = (e) => {
     let momentString;
+    // If month is changed then find out month number from month text
+    const monthNumber =
+      e.target.name.indexOf("Month") > -1
+        ? moment().month(e.target.value)
+        : moment().month(selectedExamMonth);
+
+    // Append zero if month number is single digit
+    const monthValue = monthNumber.format("M").toLocaleString("en-US", {
+      minimumIntegerDigits: 2,
+      useGrouping: false,
+    });
+
     if (e.target.name.indexOf("Month") > -1) {
-      momentString = `${e.target.value} ${selectedExamDay}, ${selectedExamYear}`;
+      momentString = `${monthValue}-${selectedExamDay}-${selectedExamYear}`;
     } else if (e.target.name.indexOf("Day") > -1) {
-      momentString = `${selectedExamMonth} ${e.target.value}, ${selectedExamYear}`;
+      momentString = `${monthValue}-${e.target.value}-${selectedExamYear}`;
     } else if (e.target.name.indexOf("Year") > -1) {
-      momentString = `${selectedExamMonth} ${selectedExamDay}, ${e.target.value}`;
+      momentString = `${monthValue}-${selectedExamDay}-${e.target.value}`;
     }
+
     return (
       momentString &&
       onChange("examDate", moment(momentString, "MM-DD-YYYY").toISOString())
