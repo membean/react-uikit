@@ -1,6 +1,6 @@
 {
   "name": "@membean/react-uikit",
-  "version": "0.16.8",
+  "version": "0.16.9",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [
