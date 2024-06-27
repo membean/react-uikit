@@ -59,7 +59,7 @@ import classnames from "classnames";
 const TextInput = React.forwardRef((props, ref) => {
   const {
     autoComplete,
-    autoFocus,
+    autoFocus = false,
     classes,
     disabled,
     feedbackContext,
@@ -79,22 +79,22 @@ const TextInput = React.forwardRef((props, ref) => {
     placeholder,
     polite,
     readOnly,
-    required,
+    required = false,
     step,
     type,
-    value
+    value,
   } = props;
 
   const controlClasses = classnames("text", "control", classes, {
     disabled: disabled,
     inline: inline,
-    invalid: isValid !== undefined && !isValid
+    invalid: isValid !== undefined && !isValid,
   });
   const feedbackClasses = classnames(
     "control-feedback",
     `${feedbackContext || "error"}`,
     {
-      "visually-hidden": !feedbackText
+      "visually-hidden": !feedbackText,
     }
   );
   const feedbackId = `${id}-feedback`;
@@ -191,14 +191,9 @@ TextInput.propTypes = {
     "text",
     "time",
     "url",
-    "week"
+    "week",
   ]),
-  value: PropTypes.string
-};
-
-TextInput.defaultProps = {
-  autoFocus: false,
-  required: false
+  value: PropTypes.string,
 };
 
 export default TextInput;

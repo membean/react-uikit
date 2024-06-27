@@ -38,11 +38,11 @@ const Tooltip = (props) => {
     id,
     link,
     onClick,
-    position,
+    position = "top",
     text,
     tooltipBody,
     url,
-    buttonType
+    buttonType = "button",
   } = props;
 
   const tooltipElementId = `${id}-desc`;
@@ -117,11 +117,6 @@ const Tooltip = (props) => {
       </div>
     </div>
   );
-};
-
-Tooltip.defaultProps = {
-  position: "top",
-  buttonType: "button"
 };
 
 Tooltip.propTypes = {

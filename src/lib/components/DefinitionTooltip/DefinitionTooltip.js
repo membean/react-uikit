@@ -30,7 +30,7 @@ import positionTooltip from "../../helpers/positionTooltip.js";
     url [String] - A url to link to. Will take precedence over onClick.
 */
 
-const DefinitionTooltip = props => {
+const DefinitionTooltip = (props) => {
   const {
     classes,
     definition,
@@ -38,16 +38,16 @@ const DefinitionTooltip = props => {
     id,
     link,
     onClick,
-    position,
+    position = "top",
     term,
-    url
+    url,
   } = props;
 
   const tooltipElementId = `${id}-desc`;
   const tooltipRef = useRef(null);
   const triggerClass = classnames("dfn-tooltip-trigger", classes);
 
-  const handleMouseEnter = event => {
+  const handleMouseEnter = (event) => {
     const currentTooltip = tooltipRef.current;
     positionTooltip(currentTooltip, position);
   };
@@ -68,7 +68,7 @@ const DefinitionTooltip = props => {
         aria-labelledby={tooltipElementId}
         className={triggerClass}
         dangerouslySetInnerHTML={{
-          __html: term
+          __html: term,
         }}
         href={url}
         onMouseEnter={handleMouseEnter}
@@ -82,7 +82,7 @@ const DefinitionTooltip = props => {
         aria-labelledby={tooltipElementId}
         className={triggerClass}
         dangerouslySetInnerHTML={{
-          __html: term
+          __html: term,
         }}
         onClick={onClick}
         onMouseEnter={handleMouseEnter}
@@ -100,7 +100,7 @@ const DefinitionTooltip = props => {
       >
         <span
           dangerouslySetInnerHTML={{
-            __html: term
+            __html: term,
           }}
         />
       </Link>
@@ -118,7 +118,7 @@ const DefinitionTooltip = props => {
       >
         <p
           dangerouslySetInnerHTML={{
-            __html: `<dfn>${term}:</dfn> ${definition}`
+            __html: `<dfn>${term}:</dfn> ${definition}`,
           }}
           id={`${id}-definition`}
         />
@@ -134,10 +134,6 @@ const DefinitionTooltip = props => {
   );
 };
 
-DefinitionTooltip.defaultProps = {
-  position: "top"
-};
-
 DefinitionTooltip.propTypes = {
   classes: PropTypes.string,
   definition: PropTypes.string.isRequired,
@@ -147,7 +143,7 @@ DefinitionTooltip.propTypes = {
   onClick: PropTypes.func,
   position: PropTypes.oneOf(["bottom", "left", "right", "top"]),
   term: PropTypes.string.isRequired,
-  url: PropTypes.string
+  url: PropTypes.string,
 };
 
 export default DefinitionTooltip;
