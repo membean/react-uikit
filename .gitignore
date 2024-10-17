@@ -26,3 +26,5 @@ dist/
 
 .env
 .npmrc
+
+.yarn/install-state.gz
