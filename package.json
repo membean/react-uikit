@@ -23,16 +23,16 @@
     "react": "^18.2.0",
     "react-datetime": "git://github.com/membean/react-datetime.git#v2.16.3-membean8",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^5.3.4",
+    "react-router-dom": "^6.22.3",
     "react-scripts": "^5.0.1",
     "serialize-javascript": "^6.0.0"
   },
   "peerDependencies": {
     "moment-timezone": "^0.5.27",
-    "react": "^16.12.0",
+    "react": "^18.2.0",
     "react-datetime": "git://github.com/membean/react-datetime.git#v2.16.3-membean8",
-    "react-dom": "^16.12.0",
-    "react-router-dom": "^5.1.2"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3"
   },
   "resolutions": {
     "serialize-javascript": "^2.1.1"

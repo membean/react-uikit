@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import CheckBoxInputPage from "./pages/CheckBoxInputPage.js";
 import DatePickerPage from "./pages/DatePickerPage.js";
 import DefinitionTooltipPage from "./pages/DefinitionTooltipPage.js";
@@ -53,41 +53,55 @@ function App() {
           </li>
         </ul>
         <hr />
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route exact path="/components/checkbox">
-            <CheckBoxInputPage />
-          </Route>
-          <Route exact path="/components/datepicker">
-            <DatePickerPage />
-          </Route>
-          <Route exact path="/components/definition-tooltip">
-            <DefinitionTooltipPage />
-          </Route>
-          <Route exact path="/components/file-browser">
-            <FileBrowserInput />
-          </Route>
-          <Route exact path="/components/progress">
-            <ProgressBarPage />
-          </Route>
-          <Route exact path="/components/radiogroup">
-            <RadioGroupInputPage />
-          </Route>
-          <Route exact path="/components/select">
-            <SelectInputPage />
-          </Route>
-          <Route exact path="/components/text-area">
-            <TextAreaPage />
-          </Route>
-          <Route exact path="/components/text-input">
-            <TextInputPage />
-          </Route>
-          <Route exact path="/components/tooltip">
-            <TooltipPage />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route exact path="/" element={<HomePage />} />
+          <Route
+            exact
+            path="/components/checkbox"
+            element={<CheckBoxInputPage />}
+          />
+          <Route
+            exact
+            path="/components/datepicker"
+            element={<DatePickerPage />}
+          />
+          <Route
+            exact
+            path="/components/definition-tooltip"
+            element={<DefinitionTooltipPage />}
+          />
+          <Route
+            exact
+            path="/components/file-browser"
+            element={<FileBrowserInput />}
+          />
+          <Route
+            exact
+            path="/components/progress"
+            element={<ProgressBarPage />}
+          />
+          <Route
+            exact
+            path="/components/radiogroup"
+            element={<RadioGroupInputPage />}
+          />
+          <Route
+            exact
+            path="/components/select"
+            element={<SelectInputPage />}
+          />
+          <Route
+            exact
+            path="/components/text-area"
+            element={<TextAreaPage />}
+          />
+          <Route
+            exact
+            path="/components/text-input"
+            element={<TextInputPage />}
+          />
+          <Route exact path="/components/tooltip" element={<TooltipPage />} />
+        </Routes>
       </div>
     </Router>
   );
