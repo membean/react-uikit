@@ -1,3 +1,5 @@
+@use "../scss/variables.scss" as *;
+
 html {
   font-size: 18px;
   line-height: 1.5;
@@ -84,7 +86,7 @@ a {
     text-decoration: underline;
 
     &:focus {
-      box-shadow: 0 0 0 $outline-width/2 $outline-color;
+      box-shadow: 0 0 0 calc($outline-width / 2) $outline-color;
       outline: none;
     }
 
