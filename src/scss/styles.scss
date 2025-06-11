@@ -217,17 +217,17 @@ a {
 
     &:focus ~ .control-indicator,
     &:hover ~ .control-indicator {
-      border-color: $blue;
+      border-color: $green-dark;
     }
 
     &:focus ~ .control-label,
     &:hover ~ .control-label {
-      color: $blue;
+      color: $green-dark;
     }
 
     &:checked:focus ~ .control-indicator,
     &:checked:hover ~ .control-indicator {
-      background-color: $blue;
+      background-color: $green-dark;
     }
 
     &.invalid ~ .control-indicator,
