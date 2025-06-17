@@ -7,7 +7,7 @@ import positionTooltip from "../../helpers/positionTooltip.js";
 /*
   Renders an accessible element that displays a tooltip.
   Element can either be a link or not.
-  
+
   Usage:
     
     <Tooltip
@@ -15,12 +15,11 @@ import positionTooltip from "../../helpers/positionTooltip.js";
       id="forgot-tooltip"
       text="Forgot something?"
     />
-  
-    Props:
 
+  Props:
     --REQUIRED--
-    text [String] - The text to display. Hovering over it will reveal the tooltip.
-    tooltipBody [String] - The text to be displayed in the tooltip
+    text [String] - Visible text (also acts as accessible label)
+    tooltipBody [String] - Tooltip content
 
     --OPTIONAL--
     classes [String] - Additional CSS classes that will be added to the control container div element.
@@ -49,59 +48,51 @@ const Tooltip = (props) => {
   const tooltipRef = useRef(null);
   const triggerClass = classnames("dfn-tooltip-trigger", classes);
 
-  const handleMouseEnter = (event) => {
+  const handleMouseEnter = () => {
     const currentTooltip = tooltipRef.current;
-    positionTooltip(currentTooltip, position);
-  };
-
-  const renderTriggerElement = () => {
-    if (link) {
-      return renderLink();
-    } else if (url) {
-      return renderAnchor();
-    } else {
-      return renderButton();
+    if (currentTooltip) {
+      positionTooltip(currentTooltip, position);
     }
   };
 
-  const renderAnchor = () => {
-    return (
-      <a
-        aria-labelledby={tooltipElementId}
-        className={triggerClass}
-        href={url}
-        onMouseEnter={handleMouseEnter}
-      >
-        {text}
-      </a>
-    );
-  };
+  const renderAnchor = () => (
+    <a
+      aria-describedby={tooltipElementId}
+      className={triggerClass}
+      href={url}
+      onMouseEnter={handleMouseEnter}
+    >
+      {text}
+    </a>
+  );
 
-  const renderButton = () => {
-    return (
-      <button
-        aria-labelledby={tooltipElementId}
-        className={triggerClass}
-        onClick={onClick}
-        onMouseEnter={handleMouseEnter}
-        type={buttonType}
-      >
-        {text}
-      </button>
-    );
-  };
+  const renderButton = () => (
+    <button
+      aria-describedby={tooltipElementId}
+      className={triggerClass}
+      onClick={onClick}
+      onMouseEnter={handleMouseEnter}
+      type={buttonType}
+    >
+      {text}
+    </button>
+  );
 
-  const renderLink = () => {
-    return (
-      <Link
-        aria-labelledby={tooltipElementId}
-        className={triggerClass}
-        onMouseEnter={handleMouseEnter}
-        to={link}
-      >
-        {text}
-      </Link>
-    );
+  const renderLink = () => (
+    <Link
+      aria-describedby={tooltipElementId}
+      className={triggerClass}
+      onMouseEnter={handleMouseEnter}
+      to={link}
+    >
+      {text}
+    </Link>
+  );
+
+  const renderTriggerElement = () => {
+    if (link) return renderLink();
+    if (url) return renderAnchor();
+    return renderButton();
   };
 
   return (
@@ -109,7 +100,7 @@ const Tooltip = (props) => {
       {renderTriggerElement()}
       <div
         className={classnames("dfn-tooltip-bubble", `tooltip-${position}`)}
-        id={`${id}-desc`}
+        id={tooltipElementId}
         ref={tooltipRef}
         role="tooltip"
       >
