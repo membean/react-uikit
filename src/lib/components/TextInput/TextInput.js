@@ -90,13 +90,15 @@ const TextInput = React.forwardRef((props, ref) => {
     inline: inline,
     invalid: isValid !== undefined && !isValid,
   });
+
   const feedbackClasses = classnames(
     "control-feedback",
     `${feedbackContext || "error"}`,
     {
-      "visually-hidden": !feedbackText,
+      "visually-hidden": !feedbackText, // ✅ visually hide only when there's no error
     }
   );
+
   const feedbackId = `${id}-feedback`;
   const helperId = `${id}-helper`;
   const inputClasses = isValid === false ? "invalid" : null;
@@ -136,13 +138,29 @@ const TextInput = React.forwardRef((props, ref) => {
         type={type || "text"}
         value={value}
       />
+
       <div
-        aria-live={polite ? "polite" : "assertive"}
-        className={feedbackClasses}
-        dangerouslySetInnerHTML={{ __html: feedbackText || null }}
+        key={feedbackText}
         id={feedbackId}
+        className={feedbackClasses}
         role="alert"
-      />
+        aria-live={polite ? "polite" : "assertive"}
+        aria-atomic="true"
+        // dangerouslySetInnerHTML={{
+        //   __html: feedbackText ? (
+        //     <span key={feedbackText}>{feedbackText}</span>
+        //   ) : (
+        //     <span aria-hidden="true">&nbsp;</span>
+        //   ),
+        // }}
+      >
+        {feedbackText ? (
+          <span>{feedbackText}</span>
+        ) : (
+          <span aria-hidden="true">&nbsp;</span>
+        )}
+      </div>
+
       {helperText && (
         <div
           className="helper-text"
