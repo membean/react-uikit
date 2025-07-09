@@ -1,12 +1,11 @@
 import React from "react";
 import TextInput from "../lib/components/TextInput/TextInput.js";
 import StandaloneTextInput from "../components/StandaloneTextInput.js";
-import FormikForm from "../components/FormikForm.js";
 
 const TextInputPage = () => {
   return (
     <div>
-      {/* <h1>Text Input</h1>
+      <h1>Text Input</h1>
       <div className="section">
         <TextInput
           disabled
@@ -61,8 +60,7 @@ const TextInputPage = () => {
           name="inlineInput2"
         />
       </div>
-      <StandaloneTextInput /> */}
-      <FormikForm />
+      <StandaloneTextInput />
     </div>
   );
 };
