@@ -95,7 +95,7 @@ const TextInput = React.forwardRef((props, ref) => {
     "control-feedback",
     `${feedbackContext || "error"}`,
     {
-      "visually-hidden": !feedbackText, // ✅ visually hide only when there's no error
+      "visually-hidden": !feedbackText, // visually hide only when there's no error
     }
   );
 
@@ -146,13 +146,6 @@ const TextInput = React.forwardRef((props, ref) => {
         role="alert"
         aria-live={polite ? "polite" : "assertive"}
         aria-atomic="true"
-        // dangerouslySetInnerHTML={{
-        //   __html: feedbackText ? (
-        //     <span key={feedbackText}>{feedbackText}</span>
-        //   ) : (
-        //     <span aria-hidden="true">&nbsp;</span>
-        //   ),
-        // }}
       >
         {feedbackText ? (
           <span>{feedbackText}</span>
