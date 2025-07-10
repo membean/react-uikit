@@ -53,7 +53,17 @@ import classnames from "classnames";
     required [Boolean] - Mark the input as required in a form.
     step [Number] - The step attribute of the input element.
     type [String] - The type of input element. Defaults to "text". One of "date", "datetime-local", "email", "month", "number", "password", "range", "search", "tel", "text", "time", "url", or "week".
-    value [Boolean] - Whether or not the checkbox is checked. Defaults to false.
+    value [String] - Value of the text input
+    isFocused [Boolean] - prop to control aria-live behavior
+
+
+     * Accessibility features:
+     * - Uses `aria-describedby` to link input with its feedback and helper text.
+     * - Uses `aria-live="assertive"` or `polite` on feedback to announce changes via screen readers.
+     * - Uses `role="alert"` for screen reader announcement of dynamic feedback.
+     * - Dynamically sets a `key` on feedback container to force DOM update and screen reader re-announcement.
+     * - Limits announcements to only the input currently in focus using the `isFocused` prop.
+     * 
 */
 
 const TextInput = React.forwardRef((props, ref) => {
@@ -83,66 +93,86 @@ const TextInput = React.forwardRef((props, ref) => {
     step,
     type,
     value,
+    isFocused, // Controls whether screen readers announce feedback for this input
   } = props;
 
   const controlClasses = classnames("text", "control", classes, {
-    disabled: disabled,
-    inline: inline,
+    disabled,
+    inline,
     invalid: isValid !== undefined && !isValid,
   });
+
   const feedbackClasses = classnames(
     "control-feedback",
     `${feedbackContext || "error"}`,
     {
-      "visually-hidden": !feedbackText,
+      "visually-hidden": !feedbackText, // visually hide only when there's no error
     }
   );
+
   const feedbackId = `${id}-feedback`;
   const helperId = `${id}-helper`;
   const inputClasses = isValid === false ? "invalid" : null;
 
+  /**
+   * Compose value for `aria-describedby` on input.
+   * Links to feedback text and/or helper text for screen readers.
+   */
   const getDescribedByIds = () => {
-    if (!helperText && !feedbackText) {
-      return null;
-    } else {
-      return `${feedbackText ? `${feedbackId} ` : ""}${
-        helperText ? helperId : ""
-      }`;
-    }
+    if (!helperText && !feedbackText) return null;
+    return `${feedbackText ? `${feedbackId} ` : ""}${
+      helperText ? helperId : ""
+    }`.trim();
   };
 
   return (
     <div className={controlClasses}>
       <label htmlFor={id}>{label}</label>
+
       <input
-        aria-describedby={getDescribedByIds()}
-        autoComplete={autoComplete || "off"}
-        autoFocus={autoFocus}
-        className={inputClasses}
-        disabled={disabled}
         id={id}
         name={name}
-        max={max || null}
-        maxLength={maxLength || null}
-        min={min || null}
-        onBlur={onBlur}
-        onChange={onChange}
-        onFocus={onFocus}
-        placeholder={placeholder || null}
-        readOnly={readOnly || null}
-        ref={ref}
-        required={required}
-        step={step || null}
         type={type || "text"}
+        className={inputClasses}
+        ref={ref}
         value={value}
+        onChange={onChange}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        autoComplete={autoComplete || "off"}
+        autoFocus={autoFocus}
+        disabled={disabled}
+        readOnly={readOnly || null}
+        placeholder={placeholder || null}
+        max={max || null}
+        min={min || null}
+        maxLength={maxLength || null}
+        step={step || null}
+        required={required}
+        aria-invalid={isValid === false}
+        aria-describedby={getDescribedByIds()}
       />
+
+      {/* 
+        Feedback region with dynamic key to force DOM updates.
+        Only sets `aria-live` and `role=alert` when the field is focused 
+        to prevent multiple announcements from unrelated fields.
+      */}
       <div
-        aria-live={polite ? "polite" : "assertive"}
-        className={feedbackClasses}
-        dangerouslySetInnerHTML={{ __html: feedbackText || null }}
+        key={feedbackText ? `${feedbackText}-${Date.now()}` : "empty-feedback"}
         id={feedbackId}
-        role="alert"
-      />
+        className={feedbackClasses}
+        role={isFocused ? "alert" : undefined}
+        aria-live={isFocused ? (polite ? "polite" : "assertive") : undefined}
+        aria-atomic="true" // Ensures full feedback text is read even on partial updates
+      >
+        {feedbackText ? (
+          <span>{feedbackText}</span>
+        ) : (
+          <span aria-hidden="true">&nbsp;</span>
+        )}
+      </div>
+
       {helperText && (
         <div
           className="helper-text"
@@ -194,6 +224,7 @@ TextInput.propTypes = {
     "week",
   ]),
   value: PropTypes.string,
+  isFocused: PropTypes.bool, // Important for screen reader conditional announcement
 };
 
 export default TextInput;
