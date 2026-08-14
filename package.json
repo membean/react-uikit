@@ -28,7 +28,7 @@
     "react-router-dom": "^5.3.4",
     "react-scripts": "^5.0.1",
     "sass": "^1.80.3",
-    "serialize-javascript": "^6.0.0"
+    "serialize-javascript": "^7.0.5"
   },
   "peerDependencies": {
     "moment-timezone": "^0.5.27",
@@ -38,7 +38,7 @@
     "react-router-dom": "^5.1.2"
   },
   "resolutions": {
-    "serialize-javascript": "^2.1.1"
+    "serialize-javascript": "^7.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
