@@ -38,7 +38,7 @@
     "react-router-dom": "^5.1.2"
   },
   "resolutions": {
-    "serialize-javascript": "^2.1.1"
+    "serialize-javascript": "^7.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
