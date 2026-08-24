@@ -1,7 +1,7 @@
 {
   "name": "@membean/react-uikit",
   "version": "0.16.9",
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "yarn@4.5.1",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [
@@ -33,7 +33,7 @@
   "peerDependencies": {
     "moment-timezone": "^0.5.27",
     "react": "^18.3.1 || ~19.0.8 || ~19.1.9 || ^19.2.8",
-    "react-datetime": "git://github.com/membean/react-datetime.git#v2.16.3-membean8",
+    "react-datetime": "*",
     "react-dom": "^18.3.1 || ~19.0.8 || ~19.1.9 || ^19.2.8",
     "react-router-dom": "^5.1.2"
   },
