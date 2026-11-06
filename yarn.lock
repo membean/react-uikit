@@ -11270,7 +11270,7 @@ __metadata:
     object-assign: "npm:^3.0.0"
     prop-types: "npm:^15.5.7"
     react-onclickoutside: "npm:^6.5.0"
-  checksum: 10c0/c8b2e35aa6a0f2511d69bff2bae8871847b312abd533114aa17b5d7dc9652a47bddf955c01378d9c98fc85030a1c2672e9267df418f206b254563e37acfcc2e5
+  checksum: 10c0/51af8e0d6652ccdaed226c797ca8e9e1d7883c807ec9efdcf3641ace4d2e40a4bafb067da3f6defbef33d5054a1bb77f15a5a2158f7eace9984fd213f5d15dfe
   languageName: node
   linkType: hard
 
