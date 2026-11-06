@@ -52,9 +52,9 @@
     "build-cra": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
-    "prepare": "npm run build",
-    "prepack": "npm run build"
+    "build": "NODE_ENV=production babel src/lib --out-dir dist --delete-dir-on-start --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
+    "prepare": "NODE_ENV=production babel src/lib --out-dir dist --delete-dir-on-start --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
+    "prepack": "NODE_ENV=production babel src/lib --out-dir dist --delete-dir-on-start --copy-files --ignore __tests__,spec.js,test.js,__snapshots__"
   },
   "eslintConfig": {
     "extends": "react-app"
